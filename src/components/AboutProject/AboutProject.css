@@ -1,0 +1,78 @@
+.aboutProject {
+  padding: 86px 0;
+}
+
+.aboutProject__container {
+  padding: 0 70px;
+}
+
+.aboutProject__description {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  gap: 40px;
+  padding: 70px 0 110px;
+}
+
+.aboutProject__description-item {
+  display: flex;
+  flex-direction: column;
+  gap: 26px
+}
+
+.aboutProject__description-title {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.aboutProject__description-text {
+  font-size: 14px;
+  line-height: 20px;
+  margin: 0;
+}
+
+.aboutProject__schedule {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 24px;
+}
+
+.aboutProject__schedule-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 20%;
+}
+
+.aboutProject__schedule-item_type_wide {
+  width: 80%;
+}
+
+.aboutProject__schedule-title {
+  margin: 0;
+  padding: 9px 14px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  background-color: #2BE080;
+}
+
+.aboutProject__schedule-title_type_wide {
+  background-color: #F2F2F2;
+}
+
+.aboutProject__schedule-text {
+  margin: 0 auto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #A0A0A0;
+}
