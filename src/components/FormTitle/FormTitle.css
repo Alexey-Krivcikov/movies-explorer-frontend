@@ -1,0 +1,25 @@
+.form-title {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 40px 0;
+  padding: 0;
+  display: block;
+}
+
+.form-title_place_profile {
+  text-align: center;
+  margin: 0;
+}
+
+@media screen and (max-width: 460px) {
+  .form-title {
+    margin: 50px 0 80px;
+  }
+
+  .form-title_place_profile {
+    margin: 0;
+  }
+}

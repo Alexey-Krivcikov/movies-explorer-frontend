@@ -1,0 +1,146 @@
+.search {
+  padding: 80px 0 84px;
+  margin: 0 70px;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.search-form {
+  display: flex;
+}
+
+.search-form__container {
+  display: flex;
+  align-items: center;
+  padding: 7px 7px 7px 22px;
+  box-sizing: border-box;
+  outline: 1.5px solid rgba(170, 170, 170, 0.2);
+  border-radius: 25px;
+  font-size: 0;
+  width: 100%;
+}
+
+.search-form__input-label {
+  width: 100%;
+  display: flex;
+}
+
+.search-form__input {
+  border: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000000;
+  padding: 0;
+  width: 100%;
+}
+
+.search-form__input::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #A0A0A0;
+}
+
+.search-form__input:focus {
+  outline: none;
+}
+
+.search-form__submit-button {
+  background-image: url('../../images/find_icon.svg');
+  background-position: center;
+  width: 35px;
+  height: 34px;
+  border: none;
+  box-sizing: border-box;
+  padding: 0;
+  align-self: center;
+  border-radius: 50%;
+}
+
+.filter {
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 41px;
+}
+
+.filter__input-label {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+.filter__invisible-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.filter__invisible-checkbox+.filter__visible-checkbox {
+  display: block;
+  margin-left: 14px;
+  background-color: transparent;
+  background-image: url('../../images/filter_smalltumb_off.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+  transition: opacity 0.5s, background-image 0.2s linear;
+}
+
+.filter__invisible-checkbox+.filter__visible-checkbox:hover {
+  opacity: 0.7;
+}
+
+.filter__invisible-checkbox:checked+.filter__visible-checkbox_type_checked {
+  background-image: url('../../images/filter_smalltumb.svg');
+}
+
+.filter__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width:768px) {
+
+  .search {
+    padding: 60px 0 57px;
+    margin: 0 30px;
+  }
+
+  .search-form {
+    flex-wrap: wrap;
+    gap: 37px;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width:420px) {
+  .search {
+    padding: 60px 0 44px;
+    margin: 0 10px;
+  }
+
+  .search-form {
+    gap: 45px;
+  }
+
+  .search-form__input {
+    line-height: 13px;
+    font-size: 11px;
+  }
+
+  .filter__text {
+    line-height: 13px;
+    font-size: 11px;
+  }
+}

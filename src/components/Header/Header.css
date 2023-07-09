@@ -1,4 +1,23 @@
 .header {
-  border: 1px solid red;
-  padding: 18px 70px;
+  background-color: #073042;
+  padding: 18px 70px 18px 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header_type_login {
+  padding-left: 70px;
+  background-color: #FFFFFF;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .header {
+    padding: 18px 14px;
+  }
 }

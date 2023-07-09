@@ -1,8 +1,13 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .page {
   background: #fff;
   color: #000;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
+
 }
 
 .page__container {
@@ -12,4 +17,5 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+
 }

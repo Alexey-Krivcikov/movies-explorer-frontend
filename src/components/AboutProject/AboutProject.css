@@ -1,9 +1,9 @@
 .aboutProject {
-  padding: 86px 0;
+  padding: 0;
 }
 
 .aboutProject__container {
-  padding: 0 70px;
+  padding: 86px 70px 139px;
 }
 
 .aboutProject__description {
@@ -38,18 +38,18 @@
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0 0 24px;
+  padding: 0;
 }
 
 .aboutProject__schedule-item {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  width: 20%;
+  min-width: 228px;
 }
 
 .aboutProject__schedule-item_type_wide {
-  width: 80%;
+  width: 100%;
 }
 
 .aboutProject__schedule-title {
@@ -65,6 +65,7 @@
 
 .aboutProject__schedule-title_type_wide {
   background-color: #F2F2F2;
+  padding: 9px 0;
 }
 
 .aboutProject__schedule-text {
@@ -75,4 +76,82 @@
   line-height: 17px;
   text-align: center;
   color: #A0A0A0;
+}
+
+@media screen and (max-width: 768px) {
+  .aboutProject__container {
+    padding: 90px 50px;
+  }
+
+  .aboutProject__description {
+    padding-bottom: 93px;
+    gap: 30px;
+  }
+
+  .aboutProject__description-item {
+    gap: 22px;
+  }
+
+  .aboutProject__description-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .aboutProject__schedule-item {
+    min-width: 140px;
+  }
+
+  .aboutProject__schedule-title {
+    padding: 9px 10px;
+  }
+
+  .aboutProject__schedule-title_type_wide {
+    padding: 9px 0;
+  }
+}
+
+@media screen and (max-width: 523px) {
+  .aboutProject__container {
+    padding: 70px 18px 69px 18px;
+  }
+
+  .aboutProject__description {
+    flex-direction: column;
+    padding: 60px 0;
+    gap: 56px;
+  }
+
+  .aboutProject__description-item {
+    gap: 16px;
+  }
+
+  .aboutProject__description-title {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .aboutProject__description-text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .aboutProject__schedule-item {
+    min-width: 100px;
+    gap: 10px;
+  }
+
+  .aboutProject__schedule-title {
+    font-size: 11px;
+    line-height: 13px;
+    padding: 11px 10px;
+  }
+
+  .aboutProject__schedule-title_type_wide {
+    padding: 11px 0;
+  }
+
+  .aboutProject__schedule-text {
+    font-size: 11px;
+    line-height: 13px;
+  }
 }

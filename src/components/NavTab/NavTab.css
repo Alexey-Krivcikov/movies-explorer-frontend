@@ -18,9 +18,18 @@
   line-height: 16px;
   text-decoration: underline;
   transition: .5s opacity;
+
 }
 
 .navTab__link:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+@media screen and (max-width: 440px) {
+  .navTab__list {
+    padding: 25px 53px;
+    gap: 24px;
+    font-size: 11px;
+  }
 }

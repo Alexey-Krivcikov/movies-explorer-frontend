@@ -8,29 +8,29 @@ function Portfolio() {
         <li className='portfolio__item'>
           <a
             className='portfolio__link'
-            href='#'
-            target='_blank'>
+            href='https://alexey-krivcikov.github.io/how-to-learn/'
+            target='_blank' rel="noreferrer">
             Статичный сайт
+            <span className='porfolio__arrow'>&#8599;</span>
           </a>
-          <span className='porfolio__arrow'>&#8599;</span>
         </li>
         <li className='portfolio__item'>
           <a
             className='portfolio__link'
-            href='#'
-            target='_blank'>
+            href='https://alexey-krivcikov.github.io/russian-travel/'
+            target='_blank' rel="noreferrer">
             Адаптивный сайт
+            <span className='porfolio__arrow'>&#8599;</span>
           </a>
-          <span className='porfolio__arrow'>&#8599;</span>
         </li>
         <li className='portfolio__item'>
           <a
             className='portfolio__link'
-            href='#'
-            target='_blank'>
+            href='https://alexey-krivcikov.github.io/mesto-react/'
+            target='_blank' rel="noreferrer">
             Одностраничное приложение
+            <span className='porfolio__arrow'>&#8599;</span>
           </a>
-          <span className='porfolio__arrow'>&#8599;</span>
         </li>
       </ul>
     </section>
