@@ -8,7 +8,7 @@ function BurgerMenu({ onNavigateToProfile, isOpen, onClose }) {
   const burgerMenuNavLink = ({ isActive }) =>
     `burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`;
   return (
-    <Popup isOpen={isOpen} onClose={onClose}>
+    <Popup isOpen={isOpen}>
       <nav className='burger-menu'>
         <button onClick={onClose} className='burger-menu__close-btn'></button>
         <ul className='burger-menu__nav'>
