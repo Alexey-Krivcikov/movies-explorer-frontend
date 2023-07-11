@@ -12,15 +12,11 @@
   transition: .5s opacity;
 }
 
-.burger-menu-btn_type_main {
-  background-image: url('../../images/burger-menu_btn_type_main.svg');
-}
-
 .burger-menu-btn:hover {
   opacity: .7;
 }
 
-.burger-menu-btn_is_hidden {
+.burger-menu-btn_is-hidden {
   visibility: hidden;
   display: none;
 }
