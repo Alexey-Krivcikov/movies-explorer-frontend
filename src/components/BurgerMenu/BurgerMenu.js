@@ -26,7 +26,7 @@ function BurgerMenu({ onNavigateToProfile, isOpen, onClose }) {
             </ul>
           </li>
           <li className='burger-menu__nav-item'>
-            <ProfileBtn isOpen={isOpen} onClose={onClose} onNavigateToProfile={onNavigateToProfile}></ProfileBtn>
+            <ProfileBtn onNavigateToProfile={onNavigateToProfile}></ProfileBtn>
           </li>
 
         </ul>
