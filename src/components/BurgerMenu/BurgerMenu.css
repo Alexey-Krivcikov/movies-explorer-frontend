@@ -1,7 +1,7 @@
 .burger-menu {
   width: 520px;
   height: 100vh;
-  background-color: #FFFFFF;
+  background-color: var(--back-main-color);
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -9,7 +9,6 @@
   right: 0;
   padding: 22.4px 22.4px 90px;
   box-sizing: border-box;
-  margin: 0 auto;
   align-items: center;
 }
 
@@ -48,6 +47,7 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+  align-items: center;
 }
 
 .burger-menu__link {
@@ -56,7 +56,7 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
-  color: #000000;
+  color: var(--text-main-color);
   text-decoration: none;
   transition: .5s opacity;
 }
@@ -67,7 +67,7 @@
 
 .burger-menu__link_active {
   padding-bottom: 4px;
-  border-bottom: 2px solid #000000;
+  border-bottom: 2px solid var(--text-main-color);
 
 }
 
@@ -82,6 +82,7 @@
   }
 
   .burger-menu__links-list {
-    gap: 24px
+    gap: 24px;
+
   }
 }
