@@ -1,13 +1,7 @@
 .header {
-  background-color: #073042;
-  padding: 18px 70px 18px 60px;
+  padding: 18px 70px;
   display: flex;
   justify-content: space-between;
-}
-
-.header_type_login {
-  padding-left: 70px;
-  background-color: #FFFFFF;
 }
 
 @media screen and (max-width: 768px) {
