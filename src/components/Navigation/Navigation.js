@@ -1,10 +1,8 @@
 import './Navigation.css';
-import { useLocation, Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import ProfileBtn from '../ProfileBtn/ProfileBtn';
 
 function Navigation({ isLoggedIn, onNavigateToProfile }) {
-  const { pathname } = useLocation();
-  const mainMenuPath = pathname === '/';
   const navLinkClassName = ({ isActive }) =>
     `navigation__login-link ${isActive ? "navigation__login-link_active" : ""}`
     ;
@@ -22,7 +20,7 @@ function Navigation({ isLoggedIn, onNavigateToProfile }) {
       )}
       {isLoggedIn && (
         <>
-          <ul className={`navigation__login-links ${(mainMenuPath && isLoggedIn) ? 'navigation__login-links_type_main' : ''}`}>
+          <ul className='navigation__login-links'>
             <li>
               <NavLink className={navLinkClassName} to='/movies'>Фильмы</NavLink>
             </li>

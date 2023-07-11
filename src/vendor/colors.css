@@ -1,5 +1,7 @@
 body {
   --back-main-color: #202020;
   --back-second-color: #272727;
-  --text-color: #FFFFFF;
+  --text-main-color: #FFFFFF;
+  --text-second-color: #000000;
+  --text-login-btn: #3DDC84;
 }

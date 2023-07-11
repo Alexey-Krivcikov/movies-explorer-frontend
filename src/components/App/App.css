@@ -4,7 +4,7 @@ html {
 
 .page {
   background: var(--back-main-color);
-  color: var(--text-color);
+  color: var(--text-main-color);
   font-family: 'Inter', sans-serif;
   font-weight: 400;
 
