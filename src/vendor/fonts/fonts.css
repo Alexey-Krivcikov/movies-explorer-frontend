@@ -24,3 +24,11 @@
   src: url('./Inter-Black.woff2') format('woff2'),
     url('./Inter-Black.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'Suisse Intl';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./SuisseIntl-Regular.woff') format('woff');
+}

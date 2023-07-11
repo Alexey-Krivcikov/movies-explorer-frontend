@@ -3,7 +3,7 @@
 }
 
 .aboutProject__container {
-  padding: 86px 70px 139px;
+  padding: 110px 70px;
 }
 
 .aboutProject__description {
@@ -24,7 +24,7 @@
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.8px;
   margin: 0;
 }
 
@@ -54,18 +54,19 @@
 
 .aboutProject__schedule-title {
   margin: 0;
-  padding: 9px 14px;
+  padding: 9px 0;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  background-color: #2BE080;
+  background-color: var(--back-schedule-color);
+  color: var(--text-second-color);
 }
 
 .aboutProject__schedule-title_type_wide {
-  background-color: #F2F2F2;
-  padding: 9px 0;
+  background-color: var(--back-schedule-second-color);
+  color: var(--text-main-color);
 }
 
 .aboutProject__schedule-text {
@@ -75,7 +76,7 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: #A0A0A0;
+  color: var(--back-schedule-text);
 }
 
 @media screen and (max-width: 768px) {
@@ -101,18 +102,15 @@
     min-width: 140px;
   }
 
-  .aboutProject__schedule-title {
-    padding: 9px 10px;
+  .aboutProject__schedule-text {
+    font-family: Suisse Intl, sans-serif;
   }
 
-  .aboutProject__schedule-title_type_wide {
-    padding: 9px 0;
-  }
 }
 
 @media screen and (max-width: 523px) {
   .aboutProject__container {
-    padding: 70px 18px 69px 18px;
+    padding: 70px 18px;
   }
 
   .aboutProject__description {
@@ -143,10 +141,6 @@
   .aboutProject__schedule-title {
     font-size: 11px;
     line-height: 13px;
-    padding: 11px 10px;
-  }
-
-  .aboutProject__schedule-title_type_wide {
     padding: 11px 0;
   }
 
