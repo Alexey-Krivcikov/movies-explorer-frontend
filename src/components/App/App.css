@@ -3,8 +3,8 @@ html {
 }
 
 .page {
-  background: #fff;
-  color: #000;
+  background: var(--back-main-color);
+  color: var(--text-color);
   font-family: 'Inter', sans-serif;
   font-weight: 400;
 
@@ -17,5 +17,4 @@ html {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-
 }
