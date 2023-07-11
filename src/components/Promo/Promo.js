@@ -1,11 +1,13 @@
 import './Promo.css';
+import NavTab from '../NavTab/NavTab';
 
 function Promo() {
   return (
     <section className='promo'>
       <div className='promo__container'>
         <h1 className='promo__title'>Учебный проект студента факультета Веб-разработки.</h1>
-        <div className='promo__logo'></div>
+        <NavTab></NavTab>
+        {/* <div className='promo__logo'></div> */}
       </div>
     </section>
   )

@@ -1,35 +1,47 @@
 .navTab {
-  background-color: #000;
+  background-color: var(--back-second-color);
 }
 
 .navTab__list {
   list-style: none;
   display: flex;
   justify-content: center;
-  gap: 40px;
-  padding: 24px 70px;
-  margin: 0;
+  gap: 10px;
+  padding: 0;
+  margin: 0 0 30px;
 }
 
 .navTab__link {
-  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--back-navTab-btn);
+  border-radius: 10px;
+  width: 96px;
+  height: 36px;
+  color: var(--text-main-color);
+  text-decoration: none;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 16px;
-  text-decoration: underline;
   transition: .5s opacity;
-
+  cursor: pointer;
 }
 
 .navTab__link:hover {
   opacity: 0.7;
-  cursor: pointer;
 }
 
 @media screen and (max-width: 440px) {
   .navTab__list {
-    padding: 25px 53px;
-    gap: 24px;
-    font-size: 11px;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+
+  .navTab__link {
+    width: 82px;
+    height: 26px;
+    border-radius: 6px;
+    font-size: 10px;
   }
 }
