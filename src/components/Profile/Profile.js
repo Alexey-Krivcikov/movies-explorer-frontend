@@ -3,13 +3,12 @@ import './Profile.css';
 import FormTitle from '../FormTitle/FormTitle';
 import Form from '../Form/Form';
 
-function Profile({ user, isEdit, isFormValid, onSubmit, onEditProfile, onSignOut }) {
+function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit, isFormValid }) {
   return (
     <main className='profile'>
       <section className='profile__container'>
         <FormTitle titleText={`Привет, ${user.name}!`} place='profile'></FormTitle>
         <Form
-          type='profile'
           name='profile'
           btnText='Сохранить'
           isProfileEdit={isEdit}
@@ -26,7 +25,7 @@ function Profile({ user, isEdit, isFormValid, onSubmit, onEditProfile, onSignOut
             id='name'
             placeholder='Имя'
             defaultValue={user.name}
-            disabled={!isEdit && true}
+            disabled={!isEdit}
             minLength='2'
             maxLength='20'
             required
@@ -41,7 +40,7 @@ function Profile({ user, isEdit, isFormValid, onSubmit, onEditProfile, onSignOut
             id='email'
             placeholder='E-mail'
             defaultValue={user.email}
-            disabled={!isEdit && true}
+            disabled={!isEdit}
             required
           />
           {(isEdit && !isFormValid) ?

@@ -59,11 +59,10 @@ function App() {
   function handleNavigateToProfile() {
     navigate('/profile', { replace: true });
     handleCloseBurgerMenu();
-
   }
 
   function handleNavigateToMain() {
-    navigate('/');
+    navigate('/', { replace: true });
   }
   // Бургер меню
   function handleOpenBurgerMenu() {
@@ -73,9 +72,6 @@ function App() {
   function handleCloseBurgerMenu() {
     setIsBurgerMenuOpen(false);
   }
-
-  // Кнопка Лайка 
-
 
   useEffect(() => {
     moviesApi.getMovies().then((movies) => {

@@ -3,14 +3,12 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ moviesCards, isLiked, handleMovieLike }) {
+function Movies({ moviesCards }) {
   return (
     <main className='movies'>
       <SearchForm></SearchForm>
       <MoviesCardList
         moviesCards={moviesCards}
-        isLiked={isLiked}
-        handleMovieLike={handleMovieLike}
       ></MoviesCardList>
 
     </main>

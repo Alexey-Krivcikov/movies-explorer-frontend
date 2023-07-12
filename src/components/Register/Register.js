@@ -2,7 +2,7 @@ import './Register.css';
 import Auth from '../Auth/Auth';
 
 
-function Register({ onSubmit, isFormValid, onNavigateToMain, onLogin }) {
+function Register({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
   return (
     <main className='register'>
       <Auth

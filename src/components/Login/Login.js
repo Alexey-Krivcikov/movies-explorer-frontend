@@ -1,7 +1,7 @@
 import Auth from '../Auth/Auth';
 import './Login.css';
 
-function Login({ onSubmit, isFormValid, onNavigateToMain, onLogin }) {
+function Login({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
   return (
     <main className='login'>
       <Auth
