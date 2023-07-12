@@ -21,7 +21,7 @@
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
-  letter-spacing: -0.04em;
+  letter-spacing: -1.6px;
 }
 
 .about-me-info__description {
@@ -29,8 +29,6 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 20px;
-  color: #111111;
-  mix-blend-mode: normal;
 }
 
 .about-me-info__my-bio {
@@ -40,6 +38,7 @@
   font-size: 14px;
   line-height: 22px;
   mix-blend-mode: normal;
+  padding-right: 10px;
 }
 
 .about-me-info__github {
@@ -48,7 +47,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  color: #000000;
+  color: var(--text-main-color);
   transition: .5s opacity;
 }
 
@@ -92,6 +91,7 @@
     font-size: 12px;
     line-height: 18px;
     margin-bottom: 87px;
+    max-width: 364px;
   }
 
   .about-me-info__photo {
@@ -128,6 +128,8 @@
     font-size: 11px;
     line-height: 16px;
     margin-bottom: 40px;
+    padding-right: 0;
+    max-width: 292px;
   }
 
   .about-me-info__photo {
