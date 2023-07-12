@@ -7,7 +7,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 20px;
-  color: var(--back-schedule-text);
+  color: var(--text-schredule-color);
   mix-blend-mode: normal;
   margin: 0 0 50px;
 }
@@ -23,7 +23,7 @@
 
 .portfolio__item {
   min-height: 69px;
-  border-bottom: 1px solid var(--line-color);
+  border-bottom: 1px solid #424242;
 }
 
 .portfolio__item:last-child {

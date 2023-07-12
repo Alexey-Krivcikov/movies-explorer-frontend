@@ -13,11 +13,11 @@
   font-size: 13px;
   line-height: 16px;
   text-align: center;
-  color: #A0A0A0;
+  color: var(--text-schredule-color);
 }
 
 .footer__container {
-  border-top: 1px solid #E8E8E8;
+  border-top: 1px solid #424242;
   display: flex;
   justify-content: space-between;
   align-items: end;
@@ -46,7 +46,7 @@
   font-size: 13px;
   line-height: 16px;
   text-align: right;
-  color: #000000;
+  color: var(--text-main-color);
   text-decoration: none;
   transition: .5s opacity;
 }
@@ -89,7 +89,7 @@
     order: 2;
     font-size: 12px;
     line-height: 15px;
-    color: #A0A0A0;
+    color: var(--text-schredule-color);
   }
 
   .footer__link {

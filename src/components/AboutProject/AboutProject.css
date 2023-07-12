@@ -76,7 +76,7 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: var(--back-schedule-text);
+  color: var(--text-schredule-color);
 }
 
 @media screen and (max-width: 768px) {
