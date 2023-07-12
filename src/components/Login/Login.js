@@ -37,7 +37,6 @@ function Login({ onSubmit, isFormValid, onNavigateToMain, onLogin }) {
           className='login__input'
           name='password'
           id='password'
-          placeholder='Пароль'
           minLength='6'
           maxLength='30'
           required

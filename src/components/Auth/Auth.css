@@ -2,7 +2,6 @@
   font-family: 'Inter', sans-serif;
   font-style: normal;
   padding: 70px 0;
-  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   width: 396px;
@@ -22,7 +21,7 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: #A0A0A0;
+  color: var(--text-schredule-color);
   margin: 0 6px 0 0;
   padding: 0;
 }
@@ -33,7 +32,7 @@
   font-size: 14px;
   line-height: 17px;
   text-align: center;
-  color: #3456F3;
+  color: var(--text-third-color);
   text-decoration: none;
   cursor: pointer;
   transition: opacity 0.5s;

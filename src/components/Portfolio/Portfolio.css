@@ -23,7 +23,7 @@
 
 .portfolio__item {
   min-height: 69px;
-  border-bottom: 1px solid #424242;
+  border-bottom: 1px solid var(--line-main-color);
 }
 
 .portfolio__item:last-child {

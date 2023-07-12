@@ -7,8 +7,8 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
-  color: #a0a0a0;
-  margin-bottom: 10px;
+  color: var(--text-schredule-color);
+  margin-bottom: 5px;
 }
 
 .login__input {
@@ -16,33 +16,34 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
-  background: #f9f9f9;
-  color: #000000;
-  border-radius: 8px;
+  background: transparent;
+  color: var(--text-main-color);
   border: none;
-  padding: 15px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--line-main-color);
   margin: 0;
 }
 
 .login__input:focus {
-  outline: 1px solid #465dff;
+  outline: none;
+  border-bottom: 1px solid var(--text-third-color);
 }
 
-.login__input::placeholder {
+/* .login__input::placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #a0a0a0;
-}
+  color: var(--text-schredule-color);
+} */
 
 .login__error {
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
-  color: #ee3465;
-  margin-top: 8px;
+  color: var(--text-error-color);
+  margin: 6px 0 6px;
   height: 12px;
 }
 

@@ -17,7 +17,7 @@
 }
 
 .footer__container {
-  border-top: 1px solid #424242;
+  border-top: 1px solid var(--line-main-color);
   display: flex;
   justify-content: space-between;
   align-items: end;
