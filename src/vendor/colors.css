@@ -15,4 +15,5 @@ body {
   --back-schedule-second-color: #303030;
 
   --line-main-color: #424242;
+  --line-search-color: rgba(170, 170, 170, 0.20000000298023224);
 }

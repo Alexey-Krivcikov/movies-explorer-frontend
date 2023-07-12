@@ -20,12 +20,12 @@ function SearchForm() {
             Поиск
           </button>
         </div>
-        <div className='filter'>
-          <p className='filter__text'>Короткометражки</p>
-          <label className='filter__input-label'>
-            <input type='checkbox' className='filter__invisible-checkbox' />
-            <span className='filter__visible-checkbox filter__visible-checkbox_type_checked'></span>
+        <div className='search__filter'>
+          <label className='search__filter-input-label'>
+            <input type='checkbox' className='search__filter-invisible-checkbox' />
+            <span className='search__filter-visible-checkbox search__filter-visible-checkbox_type_checked'></span>
           </label>
+          <p className='search__filter-text'>Короткометражки</p>
         </div>
       </form>
     </section>
