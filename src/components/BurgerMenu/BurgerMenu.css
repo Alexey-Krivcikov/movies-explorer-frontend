@@ -10,6 +10,12 @@
   padding: 22.4px 22.4px 90px;
   box-sizing: border-box;
   align-items: center;
+  transform: translateX(100%);
+  transition: transform .7s ease-in-out;
+}
+
+.burger-menu_is-open {
+  transform: translateX(0%);
 }
 
 .burger-menu__close-btn {
