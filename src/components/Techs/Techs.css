@@ -1,6 +1,6 @@
 .techs {
   padding: 100px 70px 100px;
-  background-color: #F5F5F5;
+  background-color: var(--back-second-color);
 }
 
 .techs__container {
@@ -16,7 +16,7 @@
   font-weight: 400;
   font-size: 50px;
   line-height: 58px;
-  letter-spacing: -0.04em;
+  letter-spacing: -2px;
 }
 
 .techs__description {
@@ -28,7 +28,7 @@
   font-size: 14px;
   line-height: 20px;
   text-align: center;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.56px;
 }
 
 .techs__list {
@@ -47,7 +47,7 @@
   justify-content: center;
   width: 90px;
   height: 60px;
-  background-color: #E8E8E8;
+  background-color: var(--back-main-btns-color);
   border-radius: 10px;
   font-weight: 400;
   font-size: 14px;
