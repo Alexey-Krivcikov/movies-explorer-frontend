@@ -33,7 +33,7 @@
   line-height: 17px;
   text-align: center;
   background: transparent;
-  color: #3456F3;
+  color: var(--text-third-color);
   border: none;
   cursor: pointer;
   transition: opacity 0.5s linear;
