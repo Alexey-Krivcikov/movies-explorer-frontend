@@ -13,17 +13,16 @@
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
-  color: #000000;
+  color: var(--text-main-color);
   margin: 0;
   padding: 0 0 16px 0;
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid var(--line-main-color);
   display: block;
   min-width: 50px;
   height: 14px;
 }
 
 .profile__input-label_type_e-mail {
-  padding-bottom: 0;
   margin-top: 17px;
   border-bottom: none;
 }
@@ -34,12 +33,12 @@
   font-weight: 500;
   font-size: 11px;
   line-height: 13px;
-  color: #000000;
-  background: #FFFFFF;
+  color: var(--text-main-color);
+  background: var(--back-main-color);
   border: none;
   margin: 0;
   padding: 0 0 16px 0;
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid var(--line-main-color);
   display: block;
   height: 14px;
 }
@@ -50,21 +49,20 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  color: #FF004C;
+  color: var(--text-error-color);
   margin: 0 auto 20px;
   height: 13px;
 }
 
 .profile__input_type_e-mail {
-  padding-bottom: 0;
   margin-top: 17px;
   border: none;
-  margin-bottom: 189px;
+  margin-bottom: 180px;
 }
 
 .profile__input:focus {
   outline: none;
-  border-bottom: 1px solid #E8E8E8;
+  border-bottom: 1px solid var(--text-third-color);
 }
 
 .profile__btns {
@@ -80,7 +78,8 @@
   font-size: 13px;
   line-height: 16px;
   text-align: center;
-  background-color: #FFFFFF;
+  background-color: var(--back-main-color);
+  color: var(--text-main-color);
   border: none;
   cursor: pointer;
   transition: opacity .5s;
@@ -92,13 +91,17 @@
 }
 
 .profile__btn_type_logout {
-  color: #FF004D;
+  color: var(--text-error-color);
   margin: 0;
 }
 
 @media screen and (max-width: 768px) {
   .profile__container {
     padding: 236px 0 269px;
+  }
+
+  .profile__input_type_e-mail {
+    margin-bottom: 170px;
   }
 }
 
@@ -108,12 +111,12 @@
     width: 260px;
   }
 
-  .profile__error {
-    margin-top: 347px;
-  }
-
   .profile__btn {
     font-size: 12px;
     line-height: 15px;
+  }
+
+  .profile__input_type_e-mail {
+    margin-bottom: 340px;
   }
 }

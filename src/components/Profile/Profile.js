@@ -44,7 +44,9 @@ function Profile({ user, isEdit, isFormValid, onSubmit, onEditProfile, onSignOut
             disabled={!isEdit && true}
             required
           />
-          {(isEdit && !isFormValid) && <span className='profile__error'>При обновлении профиля произошла ошибка.</span>}
+          {(isEdit && !isFormValid) ?
+            <span className='profile__error'>При обновлении профиля произошла ошибка.</span> :
+            <span className='profile__error'></span>}
         </Form>
         {!isEdit && (
           <div className='profile__btns'>
