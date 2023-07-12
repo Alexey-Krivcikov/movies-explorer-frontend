@@ -26,7 +26,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isFormValid] = useState(true);
   const [isProfileEdit, setIsProfileEdit] = useState(false);
-  const [user] = useState({ name: 'Алексей', email: 'yourMail@gmail.com' });
+  const [user] = useState({ name: 'Алексей', email: 'pochta@yandex.ru' });
   const [isLiked, setIsLiked] = useState(false);
 
   // Авторизация 

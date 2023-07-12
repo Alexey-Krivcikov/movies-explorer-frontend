@@ -25,7 +25,7 @@ function Login({ onSubmit, isFormValid, onNavigateToMain, onLogin }) {
           name='email'
           id='email'
           placeholder='E-mail'
-          defaultValue='yourMail@gmail.com'
+          defaultValue='pochta@yandex.ru'
           required
         />
         <span className='login__error'></span>

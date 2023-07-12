@@ -25,7 +25,6 @@ function Register({ onSubmit, isFormValid, onNavigateToMain, onLogin }) {
           type='text'
           name='name'
           id='name'
-          placeholder='Имя'
           minLength='2'
           maxLength='20'
           defaultValue='Алексей'
@@ -40,10 +39,9 @@ function Register({ onSubmit, isFormValid, onNavigateToMain, onLogin }) {
           className='register__input'
           name='email'
           id='email'
-          placeholder='E-mail'
           minLength='8'
           maxLength='30'
-          defaultValue='yourMail@gmail.com'
+          defaultValue='pochta@yandex.ru'
           required
         />
         <span className='register__error'></span>
@@ -55,7 +53,6 @@ function Register({ onSubmit, isFormValid, onNavigateToMain, onLogin }) {
           className='register__input register__input_is_not-valid'
           name='password'
           id='password'
-          placeholder='Пароль'
           minLength='6'
           maxLength='30'
           defaultValue='qwerty'

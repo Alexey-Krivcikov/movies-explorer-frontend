@@ -7,8 +7,8 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
-  color: #A0A0A0;
-  margin-bottom: 10px;
+  color: var(--text-schredule-color);
+  margin-bottom: 5px;
 }
 
 .register__input {
@@ -16,28 +16,29 @@
   font-weight: 500;
   font-size: 13px;
   line-height: 16px;
-  background: #F9F9F9;
-  color: #000000;
-  border-radius: 8px;
+  background: transparent;
+  color: var(--text-main-color);
   border: none;
-  padding: 15px;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--line-main-color);
   margin: 0;
 }
 
 .register__input:focus {
-  outline: 1px solid #3456F3;
+  outline: none;
+  border-bottom: 1px solid var(--text-third-color);
 }
 
-.register__input::placeholder {
+/* .register__input::placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
-  color: #A0A0A0;
-}
+  color: var(--text-schredule-color);
+} */
 
 .register__input_is_not-valid {
-  color: #FF3055;
+  color: var(--text-error-color);
 }
 
 .register__error {
@@ -45,18 +46,17 @@
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
-  color: #FF3055;
-  margin-top: 8px;
+  color: var(--text-error-color);
+  margin: 6px 0 6px;
   height: 12px;
 }
 
 .register__error:last-of-type {
-  margin-top: 10px;
-  margin-bottom: 69px;
+  margin-bottom: 134px;
 }
 
 @media screen and (max-width: 460px) {
   .register__error:last-of-type {
-    margin-bottom: 157px;
+    margin-bottom: 222px;
   }
 }
