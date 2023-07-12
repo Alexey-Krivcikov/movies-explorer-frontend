@@ -11,7 +11,6 @@ function MoviesCardList({ moviesCards }) {
         <MoviesCard
           movieCard={movieCard} />
       </li>
-
     )
   })
 

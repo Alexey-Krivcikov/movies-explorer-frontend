@@ -7,7 +7,7 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit, isFormValid
   return (
     <main className='profile'>
       <section className='profile__container'>
-        <FormTitle titleText={`Привет, ${user.name}!`} place='profile'></FormTitle>
+        <FormTitle titleText={`Привет, ${user.name}!`}></FormTitle>
         <Form
           name='profile'
           btnText='Сохранить'

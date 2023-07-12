@@ -4,7 +4,7 @@ import Navigation from '../Navigation/Navigation';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import BurgerMenuBtn from '../BurgerMenuBtn/BurgerMenuBtn';
 
-function Header({ isLoggedIn, onNavigateToProfile, onNavigateToMain, isBurgerMenuOpen, onBurgerMenuOpen, onBurgerMenuClose }) {
+function Header({ onNavigateToProfile, onNavigateToMain, isBurgerMenuOpen, onBurgerMenuOpen, onBurgerMenuClose, isLoggedIn }) {
   return (
     <header className='header'>
       <Logo onNavigateToMain={onNavigateToMain} />
