@@ -7,7 +7,7 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 20px;
-  color: #A0A0A0;
+  color: var(--back-schedule-text);
   mix-blend-mode: normal;
   margin: 0 0 50px;
 }
@@ -23,7 +23,7 @@
 
 .portfolio__item {
   min-height: 69px;
-  border-bottom: 1px solid #E6E6E6;
+  border-bottom: 1px solid var(--line-color);
 }
 
 .portfolio__item:last-child {
@@ -38,9 +38,9 @@
   font-weight: 400;
   font-size: 30px;
   line-height: 50px;
-  letter-spacing: -0.04em;
+  letter-spacing: -1.2px;
   text-decoration: none;
-  color: #000000;
+  color: var(--text-main-color);
   transition: .5s opacity;
 }
 
@@ -54,7 +54,7 @@
   font-weight: 400;
   font-size: 30px;
   line-height: 60px;
-  letter-spacing: -0.04em;
+  letter-spacing: -1.2px;
 }
 
 @media screen and (max-width: 768px) {
