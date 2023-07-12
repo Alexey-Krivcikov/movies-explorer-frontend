@@ -10,7 +10,6 @@ function MoviesCardList({ moviesCards, isLiked, handleMovieLike }) {
       <li className='movie-card' key={movieCard.id}>
         <MoviesCard
           movieCard={movieCard}
-          isLiked={isLiked}
           handleMovieLike={handleMovieLike} />
       </li>
 

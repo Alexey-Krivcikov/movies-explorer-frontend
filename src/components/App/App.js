@@ -27,7 +27,6 @@ function App() {
   const [isFormValid] = useState(true);
   const [isProfileEdit, setIsProfileEdit] = useState(false);
   const [user] = useState({ name: 'Алексей', email: 'pochta@yandex.ru' });
-  const [isLiked, setIsLiked] = useState(false);
 
   // Авторизация 
   function handleLogin() {
@@ -76,9 +75,7 @@ function App() {
   }
 
   // Кнопка Лайка 
-  function handleMovieLike() {
-    setIsLiked(!isLiked);
-  }
+
 
   useEffect(() => {
     moviesApi.getMovies().then((movies) => {
@@ -105,17 +102,13 @@ function App() {
             path='/movies'
             element={<Movies
               moviesCards={initialMovies.slice(0, 12)}
-              isLiked={isLiked}
-              handleMovieLike={handleMovieLike}
             />}
           />
 
           <Route
             path='/saved-movies'
             element={<SavedMovies
-              moviesCards={initialMovies.slice(0, 3)}
-              isLiked={isLiked}
-              handleMovieLike={handleMovieLike} />}
+              moviesCards={initialMovies.slice(0, 3)} />}
 
           />
           <Route
