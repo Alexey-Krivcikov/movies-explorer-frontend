@@ -9,6 +9,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 270px);
   gap: 38px 20px;
+  justify-content: center;
 }
 
 .movies__btn {
@@ -51,7 +52,7 @@
   }
 
   .movies-cards__list {
-    justify-content: center;
+
     gap: 34px;
     grid-template-columns: repeat(auto-fit, 300px);
   }
