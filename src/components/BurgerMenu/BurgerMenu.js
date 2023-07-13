@@ -10,7 +10,7 @@ function BurgerMenu({ onNavigateToProfile, isOpen, onClose }) {
   return (
     <Popup isOpen={isOpen}>
       <nav className={`burger-menu ${isOpen ? 'burger-menu_is-open' : ''}`}>
-        <button onClick={onClose} className='burger-menu__close-btn'></button>
+        <button type='button' onClick={onClose} className='burger-menu__close-btn'></button>
         <ul className='burger-menu__nav'>
           <li className='burger-menu__nav-item'>
             <ul className='burger-menu__links-list'>

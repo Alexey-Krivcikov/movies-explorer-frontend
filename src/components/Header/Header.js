@@ -4,11 +4,16 @@ import Navigation from '../Navigation/Navigation';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import BurgerMenuBtn from '../BurgerMenuBtn/BurgerMenuBtn';
 
-function Header({ onNavigateToProfile, onNavigateToMain, isBurgerMenuOpen, onBurgerMenuOpen, onBurgerMenuClose, isLoggedIn }) {
+function Header({ onNavigateToProfile, onNavigateToMain, onNavigateToSignIn, onNavigateToSignUp, isBurgerMenuOpen, onBurgerMenuOpen, onBurgerMenuClose, isLoggedIn }) {
   return (
     <header className='header'>
       <Logo onNavigateToMain={onNavigateToMain} />
-      <Navigation isLoggedIn={isLoggedIn} onNavigateToProfile={onNavigateToProfile}></Navigation>
+      <Navigation
+        isLoggedIn={isLoggedIn}
+        onNavigateToProfile={onNavigateToProfile}
+        onNavigateToSignIn={onNavigateToSignIn}
+        onNavigateToSignUp={onNavigateToSignUp}
+      ></Navigation>
       <BurgerMenuBtn isLoggedIn={isLoggedIn} onBurgerMenuOpen={onBurgerMenuOpen}></BurgerMenuBtn>
       <BurgerMenu isOpen={isBurgerMenuOpen} onClose={onBurgerMenuClose} onNavigateToProfile={onNavigateToProfile}></BurgerMenu>
     </header>

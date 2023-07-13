@@ -27,8 +27,15 @@ function MoviesCard({ movieCard }) {
       <div className='movie-card__container'>
         <h2 className='movie-card__title'>{movieCard.nameRU}</h2>
         {savedMoviesPathName ?
-          <button className='movie-card__btn movie-card__btn_type_delete'></button> :
-          <button onClick={handleCardLike} className={`movie-card__btn ${isLiked ? 'movie-card__btn_type_liked' : ''}`}></button>}
+          <button
+            type='button'
+            className='movie-card__btn movie-card__btn_type_delete'
+          ></button> :
+          <button
+            type='button'
+            onClick={handleCardLike}
+            className={`movie-card__btn ${isLiked ? 'movie-card__btn_type_liked' : ''}`}
+          ></button>}
 
       </div>
       <p className='movie-card__duration'>{getTimeFromMins(movieCard.duration)}</p>

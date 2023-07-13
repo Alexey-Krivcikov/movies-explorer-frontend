@@ -18,9 +18,12 @@
   font-size: 12px;
   line-height: 16px;
   color: var(--text-main-color);
+  background-color: transparent;
+  border: none;
   text-decoration: none;
   padding: 8px 0;
   transition: .5s opacity;
+  cursor: pointer;
 }
 
 .navigation__main-link:hover {

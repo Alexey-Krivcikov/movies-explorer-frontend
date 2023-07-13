@@ -47,7 +47,11 @@ function App() {
     navigate('/', { replace: true });
   }
 
-  function handleSignUp() {
+  function handleNavigateToSignUp() {
+    navigate('/signup', { replace: true });
+  }
+
+  function handleNavigateToSignIn() {
     navigate('/signin', { replace: true });
   }
 
@@ -87,6 +91,8 @@ function App() {
             isLoggedIn={isLoggedIn}
             onNavigateToMain={handleNavigateToMain}
             onNavigateToProfile={handleNavigateToProfile}
+            onNavigateToSignIn={handleNavigateToSignIn}
+            onNavigateToSignUp={handleNavigateToSignUp}
             isBurgerMenuOpen={isBurgerMenuOpen}
             onBurgerMenuOpen={handleOpenBurgerMenu}
             onBurgerMenuClose={handleCloseBurgerMenu}
@@ -121,7 +127,7 @@ function App() {
             }
           />
           <Route path='/signin' element={<Login onLogin={handleLogin} onSubmit={handleSignIn} isFormValid={isFormValid} onNavigateToMain={handleNavigateToMain} />} />
-          <Route path='/signup' element={<Register onLogin={handleLogin} onSubmit={handleSignUp} isFormValid={isFormValid} onNavigateToMain={handleNavigateToMain} />} />
+          <Route path='/signup' element={<Register onLogin={handleLogin} onSubmit={handleNavigateToSignIn} isFormValid={isFormValid} onNavigateToMain={handleNavigateToMain} />} />
           <Route path='*' element={<NotFound onNavigateToMain={handleNavigateToMain} />} />
         </Routes>
         {pathWithFooter && (
