@@ -9,7 +9,7 @@ function BurgerMenu({ onNavigateToProfile, isOpen, onClose }) {
     `burger-menu__link ${isActive ? 'burger-menu__link_active' : ''}`;
   return (
     <Popup isOpen={isOpen}>
-      <nav className={`burger-menu ${isOpen ? 'burger-menu_is-open' : ''}`}>
+      <aside className={`burger-menu ${isOpen ? 'burger-menu_is-open' : ''}`}>
         <button type='button' onClick={onClose} className='burger-menu__close-btn'></button>
         <ul className='burger-menu__nav'>
           <li className='burger-menu__nav-item'>
@@ -28,10 +28,8 @@ function BurgerMenu({ onNavigateToProfile, isOpen, onClose }) {
           <li className='burger-menu__nav-item'>
             <ProfileBtn onNavigateToProfile={onNavigateToProfile}></ProfileBtn>
           </li>
-
         </ul>
-
-      </nav>
+      </aside>
     </Popup>
   )
 }
