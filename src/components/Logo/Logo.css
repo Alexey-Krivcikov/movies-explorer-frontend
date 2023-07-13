@@ -6,6 +6,7 @@
   object-position: center;
   display: block;
   transition: 0.5s opacity;
+  margin: 3px 0;
 }
 
 .logo:hover {

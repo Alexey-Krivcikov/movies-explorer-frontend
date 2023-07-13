@@ -41,7 +41,7 @@
 
   .movies-card__list {
     gap: 30px;
-    grid-template-columns: repeat(auto-fit, 330px);
+    grid-template-columns: repeat(auto-fit, 339px);
   }
 }
 
