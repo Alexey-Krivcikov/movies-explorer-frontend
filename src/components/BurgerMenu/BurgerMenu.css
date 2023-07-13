@@ -80,11 +80,11 @@
 @media screen and (max-width: 530px) {
   .burger-menu {
     width: 100%;
-    padding: 13.4px 13.4px 46px;
+    padding: 20px 19px 46px;
   }
 
   .burger-menu__nav {
-    padding-top: 99.4px;
+    padding-top: 106px;
   }
 
   .burger-menu__links-list {

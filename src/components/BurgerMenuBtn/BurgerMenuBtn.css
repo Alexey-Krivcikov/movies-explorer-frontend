@@ -35,5 +35,6 @@
   .burger-menu-btn {
     width: 40px;
     height: 43px;
+    background-image: url('../../images/burger-menu_btn_320px.svg');
   }
 }
