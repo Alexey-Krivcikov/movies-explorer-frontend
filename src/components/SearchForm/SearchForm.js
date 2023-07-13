@@ -7,11 +7,11 @@ function SearchForm() {
         <div className='search-form__container'>
           <label className='search-form__input-label'>
             <input
+              placeholder='Фильм'
               className='search-form__input'
               type='text'
               name='search'
               id='search'
-              placeholder='Фильм'
               autoComplete='off'
               required
             />

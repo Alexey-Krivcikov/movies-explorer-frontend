@@ -19,11 +19,11 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit, isFormValid
             Имя
           </label>
           <input
+            placeholder='Имя'
             className='profile__input'
             type='text'
             name='name'
             id='name'
-            placeholder='Имя'
             defaultValue={user.name}
             disabled={!isEdit}
             minLength='2'
@@ -34,11 +34,11 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit, isFormValid
             E-mail
           </label>
           <input
+            placeholder='E-mail'
             className='profile__input profile__input_type_e-mail'
             type='email'
             name='email'
             id='email'
-            placeholder='E-mail'
             defaultValue={user.email}
             disabled={!isEdit}
             required

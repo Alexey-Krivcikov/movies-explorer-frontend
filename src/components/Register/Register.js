@@ -21,6 +21,7 @@ function Register({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
           Имя
         </label>
         <input
+          placeholder='Имя'
           className='register__input'
           type='text'
           name='name'
@@ -35,6 +36,7 @@ function Register({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
           E-mail
         </label>
         <input
+          placeholder='E-mail'
           type='email'
           className='register__input'
           name='email'
@@ -49,6 +51,7 @@ function Register({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
           Пароль
         </label>
         <input
+          placeholder='Пароль'
           type='password'
           className='register__input register__input_is_not-valid'
           name='password'

@@ -38,7 +38,7 @@
   font-size: 18px;
   color: var(--text-schredule-color);
   padding: 0;
-  width: 100%;
+  width: calc(100% - 50px);
 }
 
 .search-form__input::placeholder {
@@ -50,6 +50,7 @@
 
 .search-form__input:focus {
   outline: none;
+  border-bottom: 1px solid var(--text-third-color);
 }
 
 .search-form__submit-button {

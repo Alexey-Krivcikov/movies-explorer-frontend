@@ -65,6 +65,13 @@
   border-bottom: 1px solid var(--text-third-color);
 }
 
+.profile__input::placeholder {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: var(--text-schredule-color);
+}
+
 .profile__btns {
   display: flex;
   flex-direction: column;

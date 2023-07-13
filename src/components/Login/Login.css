@@ -29,13 +29,13 @@
   border-bottom: 1px solid var(--text-third-color);
 }
 
-/* .login__input::placeholder {
+.login__input::placeholder {
   font-style: normal;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 16px;
   color: var(--text-schredule-color);
-} */
+}
 
 .login__error {
   font-style: normal;

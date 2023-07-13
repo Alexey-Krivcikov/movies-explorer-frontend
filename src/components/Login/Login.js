@@ -20,11 +20,11 @@ function Login({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
           E-mail
         </label>
         <input
+          placeholder='E-mail'
           type='email'
           className='login__input'
           name='email'
           id='email'
-          placeholder='E-mail'
           defaultValue='pochta@yandex.ru'
           required
         />
@@ -33,6 +33,7 @@ function Login({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
           Пароль
         </label>
         <input
+          placeholder='Пароль'
           type='password'
           className='login__input'
           name='password'

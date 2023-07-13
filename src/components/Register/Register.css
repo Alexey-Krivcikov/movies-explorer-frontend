@@ -29,13 +29,13 @@
   border-bottom: 1px solid var(--text-third-color);
 }
 
-/* .register__input::placeholder {
+.register__input::placeholder {
   font-style: normal;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
   color: var(--text-schredule-color);
-} */
+}
 
 .register__input_is_not-valid {
   color: var(--text-error-color);
