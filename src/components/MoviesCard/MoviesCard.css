@@ -12,7 +12,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0 29px;
+  padding: 10px 0 25px;
   border-bottom: 1px solid var(--line-main-color);
 }
 

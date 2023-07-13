@@ -14,7 +14,7 @@
 .login__input {
   font-style: normal;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 16px;
   background: transparent;
   color: var(--text-main-color);
@@ -49,7 +49,7 @@
 
 .login__error:last-of-type {
   margin-top: 10px;
-  margin-bottom: 157px;
+  margin-bottom: 200px;
 }
 
 @media screen and (max-width: 544px) {
