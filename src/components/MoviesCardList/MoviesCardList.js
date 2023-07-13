@@ -19,7 +19,7 @@ function MoviesCardList({ moviesCards }) {
       <section className='movies-cards'>
         {!moviesCards ?
           (<p className='movies-cards__not-found'>Фильмы не найдены</p>) :
-          (<ul className='movies-card__list'>{moviesCardsItems}</ul>)
+          (<ul className='movies-cards__list'>{moviesCardsItems}</ul>)
         }
       </section>
       {pathname === '/movies' && (<button className='movies__btn' type='button'>Ещё</button>)}

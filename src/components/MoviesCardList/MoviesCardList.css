@@ -2,7 +2,7 @@
   padding: 70px 70px 10px;
 }
 
-.movies-card__list {
+.movies-cards__list {
   padding: 0;
   margin: 0;
   list-style: none;
@@ -39,7 +39,7 @@
     padding: 70px 30px 10px;
   }
 
-  .movies-card__list {
+  .movies-cards__list {
     gap: 30px;
     grid-template-columns: repeat(auto-fit, 339px);
   }
@@ -50,7 +50,7 @@
     padding: 40px 10px 10px;
   }
 
-  .movies-card__list {
+  .movies-cards__list {
     justify-content: center;
     gap: 34px;
     grid-template-columns: repeat(auto-fit, 300px);

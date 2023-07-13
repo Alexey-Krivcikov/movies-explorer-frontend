@@ -11,7 +11,7 @@ function Portfolio() {
             href='https://alexey-krivcikov.github.io/how-to-learn/'
             target='_blank' rel="noreferrer">
             Статичный сайт
-            <span className='porfolio__arrow'>&#8599;</span>
+            <span className='portfolio__arrow'>&#8599;</span>
           </a>
         </li>
         <li className='portfolio__item'>
@@ -20,7 +20,7 @@ function Portfolio() {
             href='https://alexey-krivcikov.github.io/russian-travel/'
             target='_blank' rel="noreferrer">
             Адаптивный сайт
-            <span className='porfolio__arrow'>&#8599;</span>
+            <span className='portfolio__arrow'>&#8599;</span>
           </a>
         </li>
         <li className='portfolio__item'>
@@ -29,7 +29,7 @@ function Portfolio() {
             href='https://alexey-krivcikov.github.io/mesto-react/'
             target='_blank' rel="noreferrer">
             Одностраничное приложение
-            <span className='porfolio__arrow'>&#8599;</span>
+            <span className='portfolio__arrow'>&#8599;</span>
           </a>
         </li>
       </ul>
