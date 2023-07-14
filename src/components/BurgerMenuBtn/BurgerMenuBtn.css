@@ -1,0 +1,40 @@
+.burger-menu-btn {
+  background-image: url('../../images/burger-menu_btn.svg');
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: none;
+  transition: .5s opacity;
+}
+
+.burger-menu-btn:hover {
+  opacity: .7;
+}
+
+.burger-menu-btn_is-hidden {
+  visibility: hidden;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .burger-menu-btn {
+    display: block;
+  }
+
+  .burger-menu-btn_is-hidden {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .burger-menu-btn {
+    width: 40px;
+    height: 43px;
+    background-image: url('../../images/burger-menu_btn_320px.svg');
+  }
+}

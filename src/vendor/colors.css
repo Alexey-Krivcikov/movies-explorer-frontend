@@ -1,0 +1,20 @@
+body {
+  --text-main-color: #FFFFFF;
+  --text-second-color: #000000;
+  --text-login-btn: #3DDC84;
+  --text-schredule-color: #8B8B8B;
+  --text-third-color: #4285F4;
+  --text-error-color: #EE3465;
+  --text-disable-btn-color: #C2C2C2;
+
+  --back-more-btn-color: #2F2F2F;
+  --back-main-color: #202020;
+  --back-second-color: #272727;
+  --back-profile-btn: #313131;
+  --back-main-btns-color: #303030;
+  --back-schedule-color: #3DDC84;
+  --back-schedule-second-color: #303030;
+
+  --line-main-color: #424242;
+  --line-search-color: rgba(170, 170, 170, 0.20000000298023224);
+}

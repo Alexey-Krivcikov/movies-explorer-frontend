@@ -1,0 +1,171 @@
+.search {
+  padding: 70px 70px 10px;
+  margin: 0;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  border-bottom: 1px solid var(--line-search-color);
+  padding-bottom: 44px;
+}
+
+.search-form__container {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 10px 25px;
+  box-sizing: border-box;
+  outline: 1.5px solid rgba(170, 170, 170, 0.2);
+  border-radius: 8px;
+  font-size: 0;
+  width: 100%;
+
+}
+
+.search-form__input-label {
+  width: calc(100% - 100px);
+  display: flex;
+
+}
+
+.search-form__input {
+  background-color: transparent;
+  border: none;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--text-schredule-color);
+  padding: 0;
+  width: calc(100% - 50px);
+}
+
+.search-form__input::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--text-schredule-color);
+}
+
+.search-form__input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--text-third-color);
+}
+
+.search-form__submit-button {
+  width: 100px;
+  height: 52px;
+  border: none;
+  box-sizing: border-box;
+  padding: 0;
+  align-self: center;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  background-color: var(--text-third-color);
+  color: var(--text-main-color);
+  transition: opacity .5s;
+}
+
+.search-form__submit-button:hover {
+  opacity: .7;
+}
+
+.search__filter {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  gap: 14px;
+}
+
+.search__filter-input-label {
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+
+.search__filter-invisible-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.search__filter-invisible-checkbox+.search__filter-visible-checkbox {
+  display: block;
+  background-color: transparent;
+  background-image: url('../../images/filter_smalltumb_off.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 36px;
+  height: 20px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.search__filter-invisible-checkbox+.search__filter-visible-checkbox:hover {
+  opacity: 0.7;
+}
+
+.search__filter-invisible-checkbox:checked+.search__filter-visible-checkbox_type_checked {
+  background-image: url('../../images/filter_smalltumb.svg');
+}
+
+.search__filter-text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width:768px) {
+
+  .search {
+    padding: 70px 30px 10px;
+  }
+
+  .search-form {
+    padding-bottom: 52px;
+  }
+
+}
+
+@media screen and (max-width:420px) {
+  .search {
+    padding: 70px 14px 10px;
+  }
+
+  .search-form {
+    gap: 30px;
+    padding-bottom: 64px;
+  }
+
+  .search-form__container {
+    padding: 6px 6px 6px 12px;
+    justify-content: space-between;
+  }
+
+  .search-form__input {
+    font-size: 16px;
+  }
+
+  .search-form__input::placeholder {
+    font-size: 16px;
+  }
+
+  .search__filter-text {
+    font-size: 11px;
+  }
+
+  .search-form__submit-button {
+    width: 80px;
+    height: 44px;
+  }
+}

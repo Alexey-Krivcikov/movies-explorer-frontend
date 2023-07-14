@@ -1,0 +1,23 @@
+.section-title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.88px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--text-main-color);
+}
+
+@media screen and (max-width: 500px) {
+  .section-title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+    padding-bottom: 28px;
+  }
+}
+
+@media screen and (max-width: 345px) {
+  .section-title {
+    padding-bottom: 25px;
+  }
+}

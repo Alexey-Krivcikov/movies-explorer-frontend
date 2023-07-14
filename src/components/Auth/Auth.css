@@ -1,0 +1,69 @@
+.auth {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  padding: 67px 0;
+  display: flex;
+  flex-direction: column;
+  width: 396px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.auth__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: var(--text-schredule-color);
+  margin: 0 6px 0 0;
+  padding: 0;
+}
+
+.auth__link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: var(--text-third-color);
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+
+.auth__link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+  .auth {
+    padding: 229px 0;
+  }
+}
+
+
+@media screen and (max-width: 460px) {
+  .auth {
+    padding: 53px 30px 30px;
+    align-items: center;
+    width: 320px;
+  }
+
+  .auth__text {
+    font-size: 12px;
+    line-height: 15px;
+    margin-right: 7px;
+  }
+
+  .auth__link {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
