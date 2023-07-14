@@ -9,7 +9,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 270px);
   gap: 38px 20px;
-  justify-content: center;
+
 }
 
 .movies__btn {
@@ -32,6 +32,12 @@
 
 .movies__btn:hover {
   opacity: .7;
+}
+
+@media screen and (max-width: 1270px) {
+  .movies-cards__list {
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 769px) {

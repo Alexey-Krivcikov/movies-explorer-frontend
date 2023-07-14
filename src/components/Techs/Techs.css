@@ -81,7 +81,7 @@
 
 @media screen and (max-width: 500px) {
   .techs {
-    padding: 70px 18px;
+    padding: 67px 18px 70px;
   }
 
   .techs__title {

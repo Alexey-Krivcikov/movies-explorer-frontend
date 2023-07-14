@@ -35,7 +35,7 @@
 @media screen and (max-width: 440px) {
   .navTab__list {
     gap: 6px;
-    margin-bottom: 22px;
+    margin-bottom: 17px;
   }
 
   .navTab__link {

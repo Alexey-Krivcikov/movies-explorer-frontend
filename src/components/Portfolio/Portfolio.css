@@ -95,10 +95,13 @@
   .portfolio__link {
     font-size: 18px;
     line-height: 28px;
+    letter-spacing: -0.72px;
   }
 
-  .porfolio__arrow {
+  .portfolio__arrow {
     font-size: 18px;
     line-height: 28px;
+    width: 18px;
+    height: 28px;
   }
 }
