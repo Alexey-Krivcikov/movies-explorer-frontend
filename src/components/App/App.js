@@ -11,6 +11,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
+import Preloader from "../Preloader/Preloader";
 
 import moviesApi from '../../utils/MoviesApi';
 
