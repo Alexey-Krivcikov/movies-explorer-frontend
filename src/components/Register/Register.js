@@ -1,8 +1,11 @@
 import './Register.css';
 import Auth from '../Auth/Auth';
+import { useFormWithValidation } from '../../hooks/useForm';
 
 
-function Register({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
+function Register({ onSubmit, onNavigateToMain, onLogin }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation()
+
   return (
     <main className='register'>
       <Auth
@@ -13,7 +16,7 @@ function Register({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
         linkText='Войти'
         name='register'
         onSubmit={onSubmit}
-        isFormValid={isFormValid}
+        isFormValid={isValid}
         onNavigateToMain={onNavigateToMain}
         onLogin={onLogin}
       >
@@ -21,47 +24,48 @@ function Register({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
           Имя
         </label>
         <input
+          onChange={handleChange}
+          value={values.name}
           placeholder='Имя'
-          className='register__input'
+          className={`register__input ${errors.name && 'register__input_is_not-valid'}`}
           type='text'
           name='name'
           id='name'
           minLength='2'
           maxLength='20'
-          defaultValue='Алексей'
           required
         />
-        <span className='register__error'></span>
+        <span className='register__error'>{errors.name}</span>
         <label htmlFor='email' className='register__input-label'>
           E-mail
         </label>
         <input
+          onChange={handleChange}
+          value={values.email}
           placeholder='E-mail'
           type='email'
-          className='register__input'
+          className={`register__input ${errors.email && 'register__input_is_not-valid'}`}
           name='email'
           id='email'
           minLength='8'
           maxLength='30'
-          defaultValue='pochta@yandex.ru'
           required
         />
-        <span className='register__error'></span>
+        <span className='register__error'>{errors.email}</span>
         <label htmlFor='password' className='register__input-label'>
           Пароль
         </label>
         <input
+          onChange={handleChange}
+          value={values.password}
           placeholder='Пароль'
           type='password'
-          className='register__input register__input_is_not-valid'
+          className={`register__input ${errors.password && 'register__input_is_not-valid'}`}
           name='password'
           id='password'
-          minLength='6'
-          maxLength='30'
-          defaultValue='qwerty'
           required
         />
-        <span className='register__error'>Что-то пошло не так...</span>
+        <span className='register__error'>{errors.password}</span>
       </Auth>
     </main>
 

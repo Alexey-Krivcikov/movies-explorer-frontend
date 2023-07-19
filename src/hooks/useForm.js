@@ -1,31 +1,36 @@
-import React, { useCallback } from "./react";
-
-//хук управления формой
-export function useForm() {
-  const [values, setValues] = React.useState({});
-
-  const handleChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    setValues({ ...values, [name]: value });
-  };
-
-  return { values, handleChange, setValues };
-}
+import { useState, useCallback } from "react";
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
-  const [values, setValues] = React.useState({});
-  const [errors, setErrors] = React.useState({});
-  const [isValid, setIsValid] = React.useState(false);
+  const [values, setValues] = useState({});
+  const [errors, setErrors] = useState({});
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
+    let error = '';
+    if (name === 'name') {
+      const nameRegex = /^[A-Za-zА-Яа-я\s-]+$/;
+      if (!nameRegex.test(value)) {
+        error = 'Имя должно содержать только латиницу, кириллицу, пробел или дефис.';
+      }
+    }
+    if (name === 'email') {
+      const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+      if (!emailRegex.test(value)) {
+        error = 'Введите корректный email.';
+      }
+    }
+    if (name === 'password') {
+      const passwordRegex = /.+/;
+      if (!passwordRegex.test(value)) {
+        error = 'Пароль обязателен.';
+      }
+    }
     setValues({ ...values, [name]: value });
-    setErrors({ ...errors, [name]: target.validationMessage });
+    setErrors({ ...errors, [name]: error });
     setIsValid(target.closest("form").checkValidity());
   };
 

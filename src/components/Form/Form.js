@@ -1,7 +1,7 @@
 import './Form.css';
 import { useLocation } from 'react-router-dom';
 
-function Form({ onLogin, onSubmit, name, children, btnText, isProfileEdit, isFormValid }) {
+function Form({ onSubmit, name, children, btnText, isProfileEdit, isFormValid }) {
   const { pathname } = useLocation();
   const pathWithAuth = pathname === '/signin' || pathname === '/signup';
   const handleSubmit = (evt) => {
@@ -15,6 +15,7 @@ function Form({ onLogin, onSubmit, name, children, btnText, isProfileEdit, isFor
       className={`form ${name === 'profile' ? 'form_type_profile' : ''}`}
       name={name}
       action='#'
+      noValidate
     >
       {children}
       {(pathWithAuth || isProfileEdit) && (
@@ -23,7 +24,6 @@ function Form({ onLogin, onSubmit, name, children, btnText, isProfileEdit, isFor
           className={`form__submit-btn ${!isFormValid ? 'form__submit-btn_disabled' : ''}
           ${name === 'profile' ? 'form__submit-btn_type_profile' : ''}`}
           disabled={!isFormValid}
-          onClick={onLogin}
         >
           {btnText}
         </button>

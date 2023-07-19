@@ -1,7 +1,10 @@
+import { useFormWithValidation } from '../../hooks/useForm';
 import Auth from '../Auth/Auth';
 import './Login.css';
 
-function Login({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
+
+function Login({ onSubmit, onNavigateToMain }) {
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
   return (
     <main className='login'>
       <Auth
@@ -12,37 +15,37 @@ function Login({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
         linkText='Регистрация'
         name='login'
         onSubmit={onSubmit}
-        isFormValid={isFormValid}
+        isFormValid={isValid}
         onNavigateToMain={onNavigateToMain}
-        onLogin={onLogin}
       >
         <label htmlFor='email' className='login__input-label'>
           E-mail
         </label>
         <input
+          value={values.email}
+          onChange={handleChange}
           placeholder='E-mail'
           type='email'
           className='login__input'
           name='email'
           id='email'
-          defaultValue='pochta@yandex.ru'
           required
         />
-        <span className='login__error'></span>
+        <span className='login__error'>{errors.email}</span>
         <label htmlFor='password' className='login__input-label'>
           Пароль
         </label>
         <input
+          value={values.password}
+          onChange={handleChange}
           placeholder='Пароль'
           type='password'
           className='login__input'
           name='password'
           id='password'
-          minLength='6'
-          maxLength='30'
           required
         />
-        <span className='login__error'></span>
+        <span className='login__error'>{errors.password}</span>
       </Auth>
     </main>
   )

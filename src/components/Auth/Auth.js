@@ -13,8 +13,7 @@ function Auth({ children, titleText, btnText, paragraphText, linkText, url, name
         type={name}
         name={name}
         onSubmit={onSubmit}
-        isFormValid={isFormValid}
-        onLogin={onLogin}>
+        isFormValid={isFormValid}>
         {children}
       </Form>
       <div className='auth__container'>
