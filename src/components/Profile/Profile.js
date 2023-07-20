@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
   const [submitted, setSubmitted] = useState(false);
-  const { values, handleChange, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
 
   const handleSubmit = () => {
     setSubmitted(true); // Показываем ошибку только после отправки формы
@@ -44,7 +44,6 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
             name='name'
             id='name'
             defaultValue={user.name}
-            disabled={!isEdit}
             minLength='2'
             maxLength='20'
             required
@@ -61,9 +60,9 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
             name='email'
             id='email'
             defaultValue={user.email}
-            disabled={!isValid}
             required
           />
+          {<span className='profile__error'>{errors.name || errors.email}</span>}
           {(isEdit && submitted && !isValid) ?
             <span className='profile__error'>При обновлении профиля произошла ошибка.</span> :
             <span className='profile__error'></span>}
