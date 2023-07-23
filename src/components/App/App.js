@@ -24,11 +24,23 @@ function App() {
   const pathWithHeader = pathname === '/movies' || pathname === '/saved-movies' || pathname === '/profile' || pathname === '/';
   const pathWithFooter = pathname === '/movies' || pathname === '/saved-movies' || pathname === '/';
 
+  // управление количеством отображаемых карточек 
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    console.log(visibleCards)
+    console.log(foundMovies.slice(0, visibleCards))
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   // Фильмы
   const [movies, setMovies] = useState([]);
   const [foundMovies, setFoundMovies] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isUserSearch, setUserSearch] = useState(false)
+  const [isUserSearch, setUserSearch] = useState(false);
+  const [visibleCards, setVisibleCards] = useState(0);
 
   const [currentUser, setCurrentUser] = useState({});
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -41,7 +53,7 @@ function App() {
   const [isUserSearchSuccess, setUserSearchSuccess] = useState(true);
 
 
-  // Фильмы 
+  // Поиск фильмов
   function handleSearchMovies(searchQuery) {
     setIsMoviesLoading(true);
     !isUserSearch && setUserSearch(true);
@@ -68,6 +80,7 @@ function App() {
       setIsMoviesLoading(false);
     }
 
+    // Фильтрация фильмов
     function handleFilterMovies(searchQuery, moviesFromApi) {
       localStorage.setItem('userSearchQuery', searchQuery);
       const foundMovies = moviesFromApi.filter((movie) =>
@@ -86,6 +99,36 @@ function App() {
       } else {
         setMovies(foundMovies);
       }
+    }
+  }
+
+  // количество карточек в зависимости от ширины экрана
+  function handleResize() {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth >= 1280) {
+      setVisibleCards(4)
+    } else if (screenWidth >= 990 && screenWidth <= 1280) {
+      setVisibleCards(3)
+    } else if (screenWidth >= 768 && screenWidth <= 988) {
+      setVisibleCards(2)
+    } else if (screenWidth >= 320 && screenWidth <= 767) {
+      setVisibleCards(1)
+    }
+  }
+
+  // Показать больше карточек
+  function handleShowMore() {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth >= 1280) {
+      setVisibleCards(prevVisibleCards => prevVisibleCards + 4)
+    } else if (screenWidth >= 990 && screenWidth <= 1280) {
+      setVisibleCards(prevVisibleCards => prevVisibleCards + 3)
+    } else if (screenWidth >= 768 && screenWidth <= 988) {
+      setVisibleCards(prevVisibleCards => prevVisibleCards + 2)
+    } else if (screenWidth >= 320 && screenWidth <= 767) {
+      setVisibleCards(prevVisibleCards => prevVisibleCards + 1)
     }
   }
 
@@ -162,10 +205,12 @@ function App() {
             <Route
               path='/movies'
               element={<Movies
+                visibleCards={visibleCards}
+                handleShowMore={handleShowMore}
                 isMovieLoading={isMovieLoading}
                 isUserSearchSuccess={isUserSearchSuccess}
                 onSearchSubmit={handleSearchMovies}
-                moviesCards={foundMovies.slice(0, 12)}
+                moviesCards={foundMovies}
               />}
             />
 
