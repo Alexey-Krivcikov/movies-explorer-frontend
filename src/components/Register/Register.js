@@ -4,7 +4,7 @@ import { useFormWithValidation } from '../../hooks/useForm';
 
 
 function Register({ onSubmit, onNavigateToMain, onLogin }) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation()
+  const { values, handleChange, errors, isValid } = useFormWithValidation()
 
   return (
     <main className='register'>

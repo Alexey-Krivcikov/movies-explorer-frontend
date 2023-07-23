@@ -1,5 +1,6 @@
 .movies-cards {
   padding: 70px 70px 10px;
+  min-height: 150px;
 }
 
 .movies-cards__list {
@@ -10,6 +11,10 @@
   grid-template-columns: repeat(auto-fit, 270px);
   gap: 38px 20px;
 
+}
+
+.movies-cards__not-found {
+  text-align: center;
 }
 
 .movies__btn {

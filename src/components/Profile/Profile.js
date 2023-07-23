@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
   const [submitted, setSubmitted] = useState(false);
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleSubmit = () => {
     setSubmitted(true); // Показываем ошибку только после отправки формы

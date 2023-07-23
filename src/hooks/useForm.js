@@ -9,7 +9,7 @@ export function useFormWithValidation() {
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value = target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;;
     let error = '';
     if (name === 'name') {
       const nameRegex = /^[A-Za-zА-Яа-я\s-]+$/;
@@ -27,6 +27,12 @@ export function useFormWithValidation() {
       const passwordRegex = /.+/;
       if (!passwordRegex.test(value)) {
         error = 'Пароль обязателен.';
+      }
+    }
+    if (name === 'search') {
+      const passwordRegex = /.+/;
+      if (!passwordRegex.test(value)) {
+        error = 'Нужно ввести ключевое слово.';
       }
     }
     setValues({ ...values, [name]: value });

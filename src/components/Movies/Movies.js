@@ -3,11 +3,14 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ moviesCards }) {
+function Movies({ moviesCards, onSearchSubmit, isUserSearchSuccess, isMovieLoading }) {
   return (
     <main className='movies'>
-      <SearchForm></SearchForm>
+      <SearchForm
+        isUserSearchSuccess={isUserSearchSuccess}
+        onSearchSubmit={onSearchSubmit}></SearchForm>
       <MoviesCardList
+        isMovieLoading={isMovieLoading}
         moviesCards={moviesCards}
       ></MoviesCardList>
 

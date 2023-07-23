@@ -4,7 +4,7 @@ import './Login.css';
 
 
 function Login({ onSubmit, onNavigateToMain }) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
   return (
     <main className='login'>
       <Auth

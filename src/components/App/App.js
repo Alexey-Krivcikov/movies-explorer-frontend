@@ -24,12 +24,70 @@ function App() {
   const pathWithHeader = pathname === '/movies' || pathname === '/saved-movies' || pathname === '/profile' || pathname === '/';
   const pathWithFooter = pathname === '/movies' || pathname === '/saved-movies' || pathname === '/';
 
+  // Фильмы
+  const [movies, setMovies] = useState([]);
+  const [foundMovies, setFoundMovies] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isUserSearch, setUserSearch] = useState(false)
+
   const [currentUser, setCurrentUser] = useState({});
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-  const [initialMovies, setInitialMovies] = useState([]);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileEdit, setIsProfileEdit] = useState(false);
   const [user] = useState({ name: 'Алексей', email: 'pochta@yandex.ru' });
+
+  const [isMovieLoading, setIsMoviesLoading] = useState(false);
+  const [isUserSearchSuccess, setUserSearchSuccess] = useState(true);
+
+
+  // Фильмы 
+  function handleSearchMovies(searchQuery) {
+    setIsMoviesLoading(true);
+    !isUserSearch && setUserSearch(true);
+
+    let moviesFromApi = JSON.parse(localStorage.getItem('movies'));
+
+    if (!moviesFromApi) {
+      moviesApi.getMovies()
+        .then((movies) => {
+          moviesFromApi = movies;
+          localStorage.setItem('movies', JSON.stringify(moviesFromApi));
+          handleFilterMovies(searchQuery, moviesFromApi);
+          setSearchQuery(searchQuery);
+        })
+        .catch(err => {
+          console.log(err);
+          setUserSearchSuccess(false);
+        })
+        .finally(() => {
+          setIsMoviesLoading(false);
+        });
+    } else {
+      handleFilterMovies(searchQuery, moviesFromApi);
+      setIsMoviesLoading(false);
+    }
+
+    function handleFilterMovies(searchQuery, moviesFromApi) {
+      localStorage.setItem('userSearchQuery', searchQuery);
+      const foundMovies = moviesFromApi.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+
+      localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+      setFoundMovies(foundMovies);
+
+      const checkboxState = localStorage.getItem('checkboxState');
+      if (checkboxState === 'true') {
+        const filteredFoundMovies = foundMovies.filter((movie) =>
+          movie.duration <= 40);
+        setMovies(filteredFoundMovies);
+      } else {
+        setMovies(foundMovies);
+      }
+    }
+  }
 
   // Авторизация 
   function handleLogin() {
@@ -80,12 +138,6 @@ function App() {
     setIsBurgerMenuOpen(false);
   }
 
-  useEffect(() => {
-    moviesApi.getMovies().then((movies) => {
-      setInitialMovies(movies);
-    });
-  }, []);
-
   // регистрация
 
 
@@ -110,14 +162,17 @@ function App() {
             <Route
               path='/movies'
               element={<Movies
-                moviesCards={initialMovies.slice(0, 12)}
+                isMovieLoading={isMovieLoading}
+                isUserSearchSuccess={isUserSearchSuccess}
+                onSearchSubmit={handleSearchMovies}
+                moviesCards={foundMovies.slice(0, 12)}
               />}
             />
 
             <Route
               path='/saved-movies'
               element={<SavedMovies
-                moviesCards={initialMovies.slice(0, 3)} />}
+                moviesCards={foundMovies.slice(0, 3)} />}
 
             />
             <Route
