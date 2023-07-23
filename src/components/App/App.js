@@ -113,7 +113,7 @@ function App() {
     } else if (screenWidth >= 768 && screenWidth <= 988) {
       setVisibleCards(2)
     } else if (screenWidth >= 320 && screenWidth <= 767) {
-      setVisibleCards(1)
+      setVisibleCards(5)
     }
   }
 
@@ -128,7 +128,7 @@ function App() {
     } else if (screenWidth >= 768 && screenWidth <= 988) {
       setVisibleCards(prevVisibleCards => prevVisibleCards + 2)
     } else if (screenWidth >= 320 && screenWidth <= 767) {
-      setVisibleCards(prevVisibleCards => prevVisibleCards + 1)
+      setVisibleCards(prevVisibleCards => prevVisibleCards + 2)
     }
   }
 
