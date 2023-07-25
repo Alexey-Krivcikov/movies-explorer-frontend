@@ -3,11 +3,13 @@ import './Profile.css';
 import FormTitle from '../FormTitle/FormTitle';
 import Form from '../Form/Form';
 import { useFormWithValidation } from '../../hooks/useForm';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import CurrentUserContext from '../../contexts/CurrentUserContext'
 
-function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
+function Profile({ onSubmit, onEditProfile, onSignOut, isEdit }) {
   const [submitted, setSubmitted] = useState(false);
   const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const currentUser = useContext(CurrentUserContext);
 
   const handleSubmit = () => {
     setSubmitted(true); // Показываем ошибку только после отправки формы
@@ -24,7 +26,7 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
   return (
     <main className='profile'>
       <section className='profile__container'>
-        <FormTitle titleText={`Привет, ${user.name}!`}></FormTitle>
+        <FormTitle titleText={`Привет, ${currentUser.name}!`}></FormTitle>
         <Form
           name='profile'
           btnText='Сохранить'
@@ -43,7 +45,7 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
             type='text'
             name='name'
             id='name'
-            defaultValue={user.name}
+            defaultValue={currentUser.name}
             minLength='2'
             maxLength='20'
             required
@@ -59,7 +61,7 @@ function Profile({ onSubmit, onEditProfile, onSignOut, user, isEdit }) {
             type='email'
             name='email'
             id='email'
-            defaultValue={user.email}
+            defaultValue={currentUser.email}
             required
           />
           {<span className='profile__error'>{errors.name || errors.email}</span>}

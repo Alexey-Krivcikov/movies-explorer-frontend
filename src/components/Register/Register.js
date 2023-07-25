@@ -3,12 +3,13 @@ import Auth from '../Auth/Auth';
 import { useFormWithValidation } from '../../hooks/useForm';
 
 
-function Register({ onSubmit, onNavigateToMain, onLogin }) {
+function Register({ onSubmit, onNavigateToMain }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation()
 
   return (
     <main className='register'>
       <Auth
+        values={values}
         titleText='Добро пожаловать!'
         btnText='Зарегистрироваться'
         paragraphText='Уже'
@@ -18,7 +19,6 @@ function Register({ onSubmit, onNavigateToMain, onLogin }) {
         onSubmit={onSubmit}
         isFormValid={isValid}
         onNavigateToMain={onNavigateToMain}
-        onLogin={onLogin}
       >
         <label htmlFor='name' className='register__input-label'>
           Имя

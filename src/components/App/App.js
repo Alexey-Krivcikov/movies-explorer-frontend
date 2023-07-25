@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 
 import './App.css';
+import Cookies from "js-cookie";
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Main from '../Main/Main';
@@ -28,10 +29,15 @@ function App() {
   useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
-    console.log(visibleCards)
-    console.log(foundMovies.slice(0, visibleCards))
     return () => {
       window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  useEffect(() => {
+    const savedMovies = JSON.parse(localStorage.getItem('foundMovies'));
+    if (savedMovies) {
+      setFoundMovies(savedMovies)
     }
   }, [])
 
@@ -47,11 +53,27 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isProfileEdit, setIsProfileEdit] = useState(false);
-  const [user] = useState({ name: 'Алексей', email: 'pochta@yandex.ru' });
+  const [user, setUser] = useState({});
 
   const [isMovieLoading, setIsMoviesLoading] = useState(false);
   const [isUserSearchSuccess, setUserSearchSuccess] = useState(true);
 
+  // Проверяем, есть ли JWT токен в куках
+  useEffect(() => {
+
+    const token = Cookies.get('jwt');
+    if (token) {
+      // Если токен есть, делаем запрос на сервер для получения данных пользователя
+      mainApi.getUserInfo()
+        .then((data) => {
+          setUser(data); // Сохраняем данные пользователя в состояние
+        })
+        .catch((err) => {
+          // Обработка ошибки
+          console.log(err)
+        });
+    }
+  }, []);
 
   // Поиск фильмов
   function handleSearchMovies(searchQuery) {
@@ -59,6 +81,15 @@ function App() {
     !isUserSearch && setUserSearch(true);
 
     let moviesFromApi = JSON.parse(localStorage.getItem('movies'));
+    let storedVisibleCards = JSON.parse(localStorage.getItem("visibleCards"));
+
+    if (moviesFromApi) {
+      setFoundMovies(moviesFromApi);
+    }
+
+    if (storedVisibleCards) {
+      setVisibleCards(storedVisibleCards);
+    }
 
     if (!moviesFromApi) {
       moviesApi.getMovies()
@@ -91,7 +122,7 @@ function App() {
       localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
       setFoundMovies(foundMovies);
 
-      const checkboxState = localStorage.getItem('checkboxState');
+      const checkboxState = localStorage.getItem('isShortFilm');
       if (checkboxState === 'true') {
         const filteredFoundMovies = foundMovies.filter((movie) =>
           movie.duration <= 40);
@@ -106,36 +137,44 @@ function App() {
   function handleResize() {
     const screenWidth = window.innerWidth;
 
-    if (screenWidth >= 1280) {
-      setVisibleCards(4)
-    } else if (screenWidth >= 990 && screenWidth <= 1280) {
-      setVisibleCards(3)
-    } else if (screenWidth >= 768 && screenWidth <= 988) {
-      setVisibleCards(2)
-    } else if (screenWidth >= 320 && screenWidth <= 767) {
-      setVisibleCards(5)
-    }
+    setVisibleCards(
+      screenWidth >= 1280
+        ? 4
+        : screenWidth >= 990
+          ? 3
+          : screenWidth >= 768
+            ? 2
+            : 5
+    )
   }
 
   // Показать больше карточек
   function handleShowMore() {
     const screenWidth = window.innerWidth;
+    let additionalCards = 0;
 
     if (screenWidth >= 1280) {
-      setVisibleCards(prevVisibleCards => prevVisibleCards + 4)
-    } else if (screenWidth >= 990 && screenWidth <= 1280) {
-      setVisibleCards(prevVisibleCards => prevVisibleCards + 3)
-    } else if (screenWidth >= 768 && screenWidth <= 988) {
-      setVisibleCards(prevVisibleCards => prevVisibleCards + 2)
-    } else if (screenWidth >= 320 && screenWidth <= 767) {
-      setVisibleCards(prevVisibleCards => prevVisibleCards + 2)
+      additionalCards = 4;
+    } else if (screenWidth >= 990) {
+      additionalCards = 3;
+    } else if (screenWidth >= 768) {
+      additionalCards = 2;
+    } else if (screenWidth >= 320) {
+      additionalCards = 2;
     }
+
+    setVisibleCards((prevVisibleCards) => prevVisibleCards + additionalCards);
   }
 
-  // Авторизация 
-  function handleLogin() {
-    setIsLoggedIn(true)
+  // Очистка хранилища
+  function clearLocalStorage() {
+    localStorage.removeItem("searchQuery");
+    localStorage.removeItem('movies');
+    localStorage.removeItem('foundMovies');
+    localStorage.removeItem('isShortFilm');
   }
+
+
 
   // Профиль
   function handleEditProfile() {
@@ -146,10 +185,6 @@ function App() {
     setIsProfileEdit(false);
   }
   // Навигация
-  function handleSignOut() {
-    setIsLoggedIn(false);
-    navigate('/', { replace: true });
-  }
 
   function handleNavigateToSignUp() {
     navigate('/signup', { replace: true });
@@ -157,11 +192,6 @@ function App() {
 
   function handleNavigateToSignIn() {
     navigate('/signin', { replace: true });
-  }
-
-  function handleSignIn() {
-    setIsLoggedIn(true);
-    navigate('/movies', { replace: true });
   }
 
   function handleNavigateToProfile() {
@@ -182,7 +212,50 @@ function App() {
   }
 
   // регистрация
+  function handleRegisterSubmit(values) {
+    const { name, email, password } = values;
+    mainApi.register({ name, email, password })
+      .then(() => {
+        handleLogin({ email, password });
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
+  // Авторизация 
+  function handleLogin(values) {
+    const { email, password } = values;
+
+    mainApi.authorize({ email, password })
+      .then(data => {
+        setIsLoggedIn(true);
+        Cookies.set('jwt', data.token);
+        mainApi.getUserInfo()
+          .then(userData => {
+            setCurrentUser(userData)
+          })
+          .catch(err => {
+            console.log(err)
+          });
+        navigate('/movies', { replace: true });
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  // Функция для выхода из аккаунта
+  const handleLogout = () => {
+    mainApi.signout()
+    // Очищаем куку с JWT токеном
+    Cookies.remove('jwt');
+    // Удаляем данные пользователя из состояния
+    setUser(null);
+    clearLocalStorage();
+    handleNavigateToMain();
+    setIsLoggedIn(false);
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -224,16 +297,15 @@ function App() {
               path='/profile'
               element={
                 <Profile
-                  user={user}
                   isEdit={isProfileEdit}
                   onSubmit={hadleProfileSubmit}
                   onEditProfile={handleEditProfile}
-                  onSignOut={handleSignOut}
+                  onSignOut={handleLogout}
                 />
               }
             />
-            <Route path='/signin' element={<Login onLogin={handleLogin} onSubmit={handleSignIn} onNavigateToMain={handleNavigateToMain} />} />
-            <Route path='/signup' element={<Register onLogin={handleLogin} onSubmit={handleNavigateToSignIn} onNavigateToMain={handleNavigateToMain} />} />
+            <Route path='/signin' element={<Login onSubmit={handleLogin} onNavigateToMain={handleNavigateToMain} />} />
+            <Route path='/signup' element={<Register onSubmit={handleRegisterSubmit} onNavigateToMain={handleNavigateToMain} />} />
             <Route path='*' element={<NotFound onNavigateToMain={handleNavigateToMain} />} />
           </Routes>
           {pathWithFooter && (

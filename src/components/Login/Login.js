@@ -8,6 +8,7 @@ function Login({ onSubmit, onNavigateToMain }) {
   return (
     <main className='login'>
       <Auth
+        values={values}
         titleText='Рады видеть!'
         btnText='Войти'
         paragraphText='Ещё не'

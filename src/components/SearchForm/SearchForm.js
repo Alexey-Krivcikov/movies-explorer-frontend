@@ -1,6 +1,7 @@
 import './SearchForm.css';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { USER_SEARCH_ERROR } from '../../utils/config/constants'
+import { useEffect } from 'react';
 
 function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
@@ -9,6 +10,11 @@ function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
     e.preventDefault();
     onSearchSubmit(values.search);
   }
+
+  useEffect(() => {
+    localStorage.setItem('isShortFilm', JSON.stringify(values.isShortFilm));
+  }, [values.isShortFilm]);
+
   return (
     <section className='search'>
       <form className='search-form' name='search-form' onSubmit={handleSubmit}>

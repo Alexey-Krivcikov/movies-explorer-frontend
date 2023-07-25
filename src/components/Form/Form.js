@@ -1,17 +1,18 @@
 import './Form.css';
 import { useLocation } from 'react-router-dom';
 
-function Form({ onSubmit, name, children, btnText, isProfileEdit, isFormValid }) {
+function Form({ values, onSubmit, name, children, btnText, isProfileEdit, isFormValid }) {
   const { pathname } = useLocation();
   const pathWithAuth = pathname === '/signin' || pathname === '/signup';
-  const handleSubmit = (evt) => {
-    evt.preventDefault();
-    onSubmit();
+  function handleSubmit(e) {
+    e.preventDefault()
+
+    onSubmit(values)
   }
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={e => handleSubmit(e)}
       className={`form ${name === 'profile' ? 'form_type_profile' : ''}`}
       name={name}
       action='#'

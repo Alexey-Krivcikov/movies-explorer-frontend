@@ -11,6 +11,7 @@ export function useFormWithValidation() {
     const name = target.name;
     const value = target.type === "checkbox" ? target.checked : target.value;;
     let error = '';
+
     if (name === 'name') {
       const nameRegex = /^[A-Za-zА-Яа-я\s-]+$/;
       if (!nameRegex.test(value)) {
