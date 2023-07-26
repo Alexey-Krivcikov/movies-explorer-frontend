@@ -41,6 +41,7 @@ class MainApi {
     return this._request('/signup', {
       method: 'POST',
       headers: this._headers,
+      credentials: this._credentials,
       body: JSON.stringify({
         name,
         email,

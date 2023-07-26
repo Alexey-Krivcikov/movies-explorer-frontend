@@ -4,7 +4,7 @@ import { USER_SEARCH_ERROR } from '../../utils/config/constants'
 import { useEffect } from 'react';
 
 function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
-  const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
           <label className='search-form__input-label'>
             <input
               onChange={handleChange}
-              value={values.search}
+              value={values.search || ''}
               placeholder='Фильм'
               className='search-form__input'
               type='text'
@@ -39,7 +39,7 @@ function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
             Поиск
           </button>
         </div>
-        <span className='search-form__error'>{errors.search || (!isUserSearchSuccess && USER_SEARCH_ERROR)}</span>
+        <span className='search-form__error'>{errors.search || (!isUserSearchSuccess && USER_SEARCH_ERROR) || false}</span>
         <div className='search__filter'>
           <label className='search__filter-input-label'>
             <input
