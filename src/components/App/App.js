@@ -17,6 +17,7 @@ import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from "../../utils/MainApi";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 
 function App() {
@@ -277,7 +278,9 @@ function App() {
             <Route path='/' element={<Main />} />
             <Route
               path='/movies'
-              element={<Movies
+              element={<ProtectedRoute
+                loggedIn={isLoggedIn}
+                element={Movies}
                 visibleCards={visibleCards}
                 handleShowMore={handleShowMore}
                 isMovieLoading={isMovieLoading}
@@ -289,14 +292,20 @@ function App() {
 
             <Route
               path='/saved-movies'
-              element={<SavedMovies
-                moviesCards={foundMovies.slice(0, 3)} />}
-
+              element={
+                <ProtectedRoute
+                  loggedIn={isLoggedIn}
+                  element={SavedMovies}
+                  moviesCards={foundMovies.slice(0, 3)}
+                />}
             />
+
             <Route
               path='/profile'
               element={
-                <Profile
+                <ProtectedRoute
+                  loggedIn={isLoggedIn}
+                  element={Profile}
                   isEdit={isProfileEdit}
                   onSubmit={hadleProfileSubmit}
                   onEditProfile={handleEditProfile}
