@@ -9,7 +9,7 @@ export function useFormWithValidation() {
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value = target.type === "checkbox" ? target.checked : target.value;;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     let error = '';
 
     if (name === 'name') {
@@ -36,6 +36,8 @@ export function useFormWithValidation() {
         error = 'Нужно ввести ключевое слово.';
       }
     }
+
+
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: error });
     setIsValid(target.closest("form").checkValidity());

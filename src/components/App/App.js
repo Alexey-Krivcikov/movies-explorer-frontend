@@ -51,7 +51,9 @@ function App() {
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [isProfileEdit, setIsProfileEdit] = useState(false);
+  const [profileMessage, setProfileMessage] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
   const [isMovieLoading, setIsMoviesLoading] = useState(false);
@@ -155,12 +157,23 @@ function App() {
   }
 
   // Профиль
-  function handleEditProfile() {
-    setIsProfileEdit(true);
+  function handleProfileSubmit(values) {
+
+    const { email, name } = values;
+    mainApi.setUserInfo({ email, name })
+      .then(updatedUser => {
+        setCurrentUser(updatedUser);
+        setProfileMessage('Профиль успешно обновлён')
+        setIsProfileEdit(false);
+      })
+      .catch(err => {
+        setProfileMessage('Ошибка при обновлении профиля.');
+        console.log(err)
+      })
   }
 
-  function hadleProfileSubmit() {
-    setIsProfileEdit(false);
+  function hadleProfileEdit() {
+    setIsProfileEdit(true);
   }
   // Навигация
 
@@ -313,11 +326,12 @@ function App() {
                 path='/profile'
                 element={
                   <ProtectedRoute
+                    profileMessage={profileMessage}
                     loggedIn={isLoggedIn}
                     element={Profile}
                     isEdit={isProfileEdit}
-                    onSubmit={hadleProfileSubmit}
-                    onEditProfile={handleEditProfile}
+                    onSubmit={handleProfileSubmit}
+                    onEditProfile={hadleProfileEdit}
                     onSignOut={handleLogout}
                   />
                 }

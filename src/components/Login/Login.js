@@ -23,7 +23,7 @@ function Login({ onSubmit, onNavigateToMain }) {
           E-mail
         </label>
         <input
-          value={values.email}
+          value={values.email || ''}
           onChange={handleChange}
           placeholder='E-mail'
           type='email'
@@ -37,7 +37,7 @@ function Login({ onSubmit, onNavigateToMain }) {
           Пароль
         </label>
         <input
-          value={values.password}
+          value={values.password || ''}
           onChange={handleChange}
           placeholder='Пароль'
           type='password'

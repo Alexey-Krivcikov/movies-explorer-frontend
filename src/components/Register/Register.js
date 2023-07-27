@@ -25,7 +25,7 @@ function Register({ onSubmit, onNavigateToMain }) {
         </label>
         <input
           onChange={handleChange}
-          value={values.name}
+          value={values.name || ''}
           placeholder='Имя'
           className={`register__input ${errors.name && 'register__input_is_not-valid'}`}
           type='text'
@@ -41,7 +41,7 @@ function Register({ onSubmit, onNavigateToMain }) {
         </label>
         <input
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ''}
           placeholder='E-mail'
           type='email'
           className={`register__input ${errors.email && 'register__input_is_not-valid'}`}
@@ -57,7 +57,7 @@ function Register({ onSubmit, onNavigateToMain }) {
         </label>
         <input
           onChange={handleChange}
-          value={values.password}
+          value={values.password || ''}
           placeholder='Пароль'
           type='password'
           className={`register__input ${errors.password && 'register__input_is_not-valid'}`}
