@@ -115,6 +115,18 @@ function App() {
     }
   }
 
+  // фильтр по чекбоксу 
+  function handleFilterCheckbox() {
+    const checkboxState = localStorage.getItem('isShortFilm');
+    if (!(checkboxState === 'true')) {
+      const filteredFoundMovies = foundMovies.filter((movie) =>
+        movie.duration <= 40);
+      setFoundMovies(filteredFoundMovies);
+    } else {
+      setFoundMovies(JSON.parse(localStorage.getItem('foundMovies')))
+    }
+  }
+
   // количество карточек в зависимости от ширины экрана
   function handleResize() {
     const screenWidth = window.innerWidth;
@@ -277,6 +289,8 @@ function App() {
     }
   }, []);
 
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {isLoading ? (
@@ -309,6 +323,7 @@ function App() {
                   isUserSearchSuccess={isUserSearchSuccess}
                   onSearchSubmit={handleSearchMovies}
                   moviesCards={foundMovies}
+                  handleFilterCheckbox={handleFilterCheckbox}
                 />}
               />
 

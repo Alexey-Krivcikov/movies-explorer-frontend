@@ -3,10 +3,11 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ visibleCards, handleShowMore, moviesCards, onSearchSubmit, isUserSearchSuccess, isMovieLoading }) {
+function Movies({ handleFilterCheckbox, visibleCards, handleShowMore, moviesCards, onSearchSubmit, isUserSearchSuccess, isMovieLoading }) {
   return (
     <main className='movies'>
       <SearchForm
+        handleFilterCheckbox={handleFilterCheckbox}
         isUserSearchSuccess={isUserSearchSuccess}
         onSearchSubmit={onSearchSubmit}></SearchForm>
       <MoviesCardList
@@ -14,6 +15,7 @@ function Movies({ visibleCards, handleShowMore, moviesCards, onSearchSubmit, isU
         handleShowMore={handleShowMore}
         isMovieLoading={isMovieLoading}
         moviesCards={moviesCards}
+
       ></MoviesCardList>
 
     </main>

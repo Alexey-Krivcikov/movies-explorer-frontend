@@ -3,7 +3,7 @@ import { useFormWithValidation } from '../../hooks/useForm';
 import { USER_SEARCH_ERROR } from '../../utils/config/constants'
 import { useEffect } from 'react';
 
-function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
+function SearchForm({ handleFilterCheckbox, onSearchSubmit, isUserSearchSuccess }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleSubmit = (e) => {
@@ -11,8 +11,9 @@ function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
     onSearchSubmit(values.search);
   }
 
+
   useEffect(() => {
-    localStorage.setItem('isShortFilm', JSON.stringify(values.isShortFilm));
+    localStorage.setItem('isShortFilm', JSON.stringify(values.isShortFilm) || 'false');
   }, [values.isShortFilm]);
 
   return (
@@ -43,6 +44,7 @@ function SearchForm({ onSearchSubmit, isUserSearchSuccess }) {
         <div className='search__filter'>
           <label className='search__filter-input-label'>
             <input
+              onClick={handleFilterCheckbox}
               value={values.isShortFilm}
               onChange={handleChange}
               name='isShortFilm'
