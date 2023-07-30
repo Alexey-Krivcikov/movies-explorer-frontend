@@ -2,15 +2,29 @@ import './SearchForm.css';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { USER_SEARCH_ERROR } from '../../utils/config/constants'
 import { useEffect } from 'react';
+import { useLoaderData, useLocation } from 'react-router-dom';
 
-function SearchForm({ handleFilterCheckbox, onSearchSubmit, isUserSearchSuccess }) {
+function SearchForm({ handleSearchSavedMovies, handleFilterSavedCheckbox, handleFilterCheckbox, onSearchSubmit, isUserSearchSuccess }) {
+  const { pathname } = useLocation();
+  const moviesPath = pathname === 'movies';
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearchSubmit(values.search);
+    if (pathname === '/movies') {
+      onSearchSubmit(values.search);
+    } else {
+      handleSearchSavedMovies(values.search)
+    }
   }
-
+  const handleCheckBox = () => {
+    console.log(pathname)
+    if (pathname === '/movies') {
+      handleFilterCheckbox()
+    } else {
+      handleFilterSavedCheckbox()
+    }
+  }
 
   useEffect(() => {
     localStorage.setItem('isShortFilm', JSON.stringify(values.isShortFilm) || 'false');
@@ -40,11 +54,11 @@ function SearchForm({ handleFilterCheckbox, onSearchSubmit, isUserSearchSuccess 
             Поиск
           </button>
         </div>
-        <span className='search-form__error'>{errors.search || (!isUserSearchSuccess && USER_SEARCH_ERROR) || false}</span>
+        <span className='search-form__error'>{errors.search || (!isUserSearchSuccess && USER_SEARCH_ERROR)}</span>
         <div className='search__filter'>
           <label className='search__filter-input-label'>
             <input
-              onClick={handleFilterCheckbox}
+              onClick={handleCheckBox}
               value={values.isShortFilm}
               onChange={handleChange}
               name='isShortFilm'

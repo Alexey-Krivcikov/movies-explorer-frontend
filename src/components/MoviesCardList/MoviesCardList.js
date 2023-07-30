@@ -3,12 +3,16 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
+function MoviesCardList({ foundSavedMovies, savedMovies, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
   const moviesCardsItems = moviesCards.map(movieCard => {
     return (
-      <li className='movie-card' key={movieCard.id}>
+      <li className='movie-card' key={movieCard?.id || movieCard._id}>
         <MoviesCard
-          movieCard={movieCard} />
+          handleDeleteMovie={handleDeleteMovie}
+          handleSaveMovie={handleSaveMovie}
+          movieCard={movieCard}
+          isSaved={savedMovies.some((savedMovie) => savedMovie.movieId === movieCard.id)}
+        />
       </li>
     )
   })

@@ -3,7 +3,7 @@ import Auth from '../Auth/Auth';
 import './Login.css';
 
 
-function Login({ onSubmit, onNavigateToMain }) {
+function Login({ authError, onSubmit, onNavigateToMain }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
   return (
     <main className='login'>
@@ -47,6 +47,7 @@ function Login({ onSubmit, onNavigateToMain }) {
           required
         />
         <span className='login__error'>{errors.password}</span>
+        {authError && <span className='login__error'>{authError}</span>}
       </Auth>
     </main>
   )

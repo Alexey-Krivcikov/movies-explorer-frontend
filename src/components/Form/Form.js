@@ -3,19 +3,19 @@ import './Form.css';
 import { useLocation } from 'react-router-dom';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Form({ setSubmitted, values, onSubmit, name, children, btnText, isProfileEdit, isFormValid }) {
+function Form({ values, onSubmit, name, children, btnText, isProfileEdit, isFormValid }) {
   const currentUser = useContext(CurrentUserContext)
   const { pathname } = useLocation();
   const pathWithAuth = pathname === '/signin' || pathname === '/signup';
   function handleSubmit(e) {
     e.preventDefault()
-    setSubmitted(true);
     if (isFormValid) {
       if (!values.name) {
         values.name = currentUser.name;
       } else if (!values.email) {
         values.email = currentUser.email;
       }
+      console.log(values)
       onSubmit(values)
     }
   }

@@ -88,7 +88,7 @@ class MainApi {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     thumbnail,
     movieId, }) {
     return this._request('/movies', {
@@ -104,7 +104,7 @@ class MainApi {
         year,
         description,
         image,
-        trailer,
+        trailerLink,
         thumbnail,
         movieId,
       })

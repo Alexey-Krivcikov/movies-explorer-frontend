@@ -26,6 +26,24 @@ function App() {
   const pathWithHeader = pathname === '/movies' || pathname === '/saved-movies' || pathname === '/profile' || pathname === '/';
   const pathWithFooter = pathname === '/movies' || pathname === '/saved-movies' || pathname === '/';
 
+  // Фильмы
+  const [foundMovies, setFoundMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [visibleCards, setVisibleCards] = useState(0);
+
+  const [currentUser, setCurrentUser] = useState({});
+  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [authError, setAuthError] = useState('');
+
+  const [isProfileEdit, setIsProfileEdit] = useState(false);
+  const [profileMessage, setProfileMessage] = useState('');
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isMovieLoading, setIsMoviesLoading] = useState(false);
+  const [isUserSearchSuccess, setUserSearchSuccess] = useState(true);
+
   // управление количеством отображаемых карточек 
   useEffect(() => {
     handleResize();
@@ -39,30 +57,42 @@ function App() {
     const savedMovies = JSON.parse(localStorage.getItem('foundMovies'));
     if (savedMovies) {
       setFoundMovies(savedMovies)
+    } else {
+      handleGetSavedMovies();
     }
-  }, [])
+  }, [isLoggedIn])
 
-  // Фильмы
-  const [foundMovies, setFoundMovies] = useState([]);
-  const [isUserSearch, setUserSearch] = useState(false);
-  const [visibleCards, setVisibleCards] = useState(0);
 
-  const [currentUser, setCurrentUser] = useState({});
-  const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  // Проверяем, есть ли JWT токен в куках
+  useEffect(() => {
+    const token = Cookies.get('jwt');
+    if (token) {
+      setIsLoading(true);
+      // Если токен есть, делаем запрос на сервер для получения данных пользователя
+      mainApi.getUserInfo()
+        .then((data) => {
+          setCurrentUser(data); // Сохраняем данные пользователя в состояние
+          setIsLoggedIn(true)
+        })
+        .catch((err) => {
+          // Обработка ошибки
+          console.log(err)
+          Cookies.remove('jwt');
+          setCurrentUser({});
+          setIsLoggedIn(false);
+        })
+        .finally(() => { setIsLoading(false) })
+    } else {
+      setIsLoading(false)
+    }
+  }, []);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const [isProfileEdit, setIsProfileEdit] = useState(false);
-  const [profileMessage, setProfileMessage] = useState('');
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [isMovieLoading, setIsMoviesLoading] = useState(false);
-  const [isUserSearchSuccess, setUserSearchSuccess] = useState(true);
 
   // Поиск фильмов
   function handleSearchMovies(searchQuery) {
     setIsMoviesLoading(true);
-    !isUserSearch && setUserSearch(true);
+
+    !isUserSearchSuccess && setUserSearchSuccess(true);
 
     let moviesFromApi = JSON.parse(localStorage.getItem('movies'));
     let storedVisibleCards = JSON.parse(localStorage.getItem("visibleCards"));
@@ -81,6 +111,7 @@ function App() {
           moviesFromApi = movies;
           localStorage.setItem('movies', JSON.stringify(moviesFromApi));
           handleFilterMovies(searchQuery, moviesFromApi);
+
         })
         .catch(err => {
           console.log(err);
@@ -92,11 +123,13 @@ function App() {
     } else {
       handleFilterMovies(searchQuery, moviesFromApi);
       setIsMoviesLoading(false);
+
     }
+
 
     // Фильтрация фильмов
     function handleFilterMovies(searchQuery, moviesFromApi) {
-      localStorage.setItem('userSearchQuery', searchQuery);
+      localStorage.setItem('searchQuery', searchQuery);
       const foundMovies = moviesFromApi.filter((movie) =>
         movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
         movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
@@ -115,6 +148,32 @@ function App() {
     }
   }
 
+  // Поиск в сохраненных фильмах фильмов
+  function handleSearchSavedMovies(searchQuery) {
+    if (savedMovies.length > 0) {
+      handleFilterSavedMovies(searchQuery, savedMovies)
+    }
+  }
+
+  // фильтр сохраненных фильмов
+  function handleFilterSavedMovies(searchQuery, savedMovies) {
+    localStorage.setItem('searchQuery', searchQuery);
+    const foundSavedMovies = savedMovies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const checkboxState = localStorage.getItem('isShortFilm');
+    if (checkboxState === 'true') {
+      const filteredFoundMovies = savedMovies.filter((movie) =>
+        movie.duration <= 40);
+      setSavedMovies(filteredFoundMovies);
+    } else {
+      setSavedMovies(foundSavedMovies);
+    }
+  }
+
+
   // фильтр по чекбоксу 
   function handleFilterCheckbox() {
     const checkboxState = localStorage.getItem('isShortFilm');
@@ -127,6 +186,17 @@ function App() {
     }
   }
 
+  //  фильтр по чекбоксу в сохраненных фильмах  
+  function handleFilterSavedCheckbox() {
+    const checkboxState = localStorage.getItem('isShortFilm');
+    if (!(checkboxState === 'true')) {
+      const filteredFoundMovies = savedMovies.filter((movie) =>
+        movie.duration <= 40);
+      setSavedMovies(filteredFoundMovies);
+    } else {
+      setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')))
+    }
+  }
   // количество карточек в зависимости от ширины экрана
   function handleResize() {
     const screenWidth = window.innerWidth;
@@ -160,10 +230,54 @@ function App() {
     setVisibleCards((prevVisibleCards) => prevVisibleCards + additionalCards);
   }
 
+  // получение сохраненных фильмов
+  function handleGetSavedMovies() {
+    mainApi.getMovies()
+      .then(movies => {
+        setSavedMovies(movies);
+        localStorage.setItem('savedMovies', JSON.stringify(movies));
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  // сохранение фильма
+  function handleSaveMovie(movie) {
+    const isMovieSaved = savedMovies.some((savedMovie) => {
+      return savedMovie.movieId === movie.movieId;
+    });
+    if (!isMovieSaved) {
+      mainApi.saveMovie(movie)
+        .then(savedMovie => {
+          const updatedSavedMovies = [...savedMovies, savedMovie];
+          setSavedMovies(updatedSavedMovies);
+          localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
+
+  // удаление фильма
+  function handleDeleteMovie(movieId) {
+    mainApi.deleteMovie(movieId)
+      .then(res => {
+        const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movieId);
+        setSavedMovies(updatedSavedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   // Очистка хранилища
   function clearLocalStorage() {
-    localStorage.removeItem("searchQuery");
-    localStorage.removeItem('movies');
+    localStorage.removeItem("searchQuery")
+    localStorage.removeItem("foundSavedMovies");
+    localStorage.removeItem('savedMovies');
     localStorage.removeItem('foundMovies');
     localStorage.removeItem('isShortFilm');
   }
@@ -223,6 +337,7 @@ function App() {
       })
       .catch(err => {
         console.log(err)
+        setAuthError('Неправильный логин или пароль')
       })
   }
 
@@ -247,6 +362,7 @@ function App() {
       })
       .catch(err => {
         console.log(err)
+        setAuthError('Неправильный логин или пароль')
       })
   }
 
@@ -258,36 +374,14 @@ function App() {
         setCurrentUser({});
         clearLocalStorage();
         handleNavigateToMain();
+        setFoundMovies([])
         setIsLoggedIn(false);
+
       })
       .catch((error) => {
         console.error("Ошибка выхода из аккаунта:", error);
       });
   };
-
-  // Проверяем, есть ли JWT токен в куках
-  useEffect(() => {
-    const token = Cookies.get('jwt');
-    if (token) {
-      setIsLoading(true);
-      // Если токен есть, делаем запрос на сервер для получения данных пользователя
-      mainApi.getUserInfo()
-        .then((data) => {
-          setCurrentUser(data); // Сохраняем данные пользователя в состояние
-          setIsLoggedIn(true)
-        })
-        .catch((err) => {
-          // Обработка ошибки
-          console.log(err)
-          Cookies.remove('jwt');
-          setCurrentUser({});
-          setIsLoggedIn(false);
-        })
-        .finally(() => { setIsLoading(false) })
-    } else {
-      setIsLoading(false)
-    }
-  }, []);
 
 
 
@@ -315,6 +409,9 @@ function App() {
               <Route
                 path='/movies'
                 element={<ProtectedRoute
+                  savedMovies={savedMovies}
+                  handleDeleteMovie={handleDeleteMovie}
+                  handleSaveMovie={handleSaveMovie}
                   loggedIn={isLoggedIn}
                   element={Movies}
                   visibleCards={visibleCards}
@@ -331,9 +428,14 @@ function App() {
                 path='/saved-movies'
                 element={
                   <ProtectedRoute
+                    handleFilterSavedCheckbox={handleFilterSavedCheckbox}
+                    handleSearchSavedMovies={handleSearchSavedMovies}
+                    handleDeleteMovie={handleDeleteMovie}
+                    savedMovies={savedMovies}
                     loggedIn={isLoggedIn}
                     element={SavedMovies}
-                    moviesCards={foundMovies.slice(0, 3)}
+                    moviesCards={savedMovies}
+                    isUserSearchSuccess={isUserSearchSuccess}
                   />}
               />
 
@@ -351,8 +453,24 @@ function App() {
                   />
                 }
               />
-              <Route path='/signin' element={<Login onSubmit={handleLogin} onNavigateToMain={handleNavigateToMain} />} />
-              <Route path='/signup' element={<Register onSubmit={handleRegisterSubmit} onNavigateToMain={handleNavigateToMain} />} />
+              <Route
+                path='/signin'
+                element={
+                  <Login
+                    onSubmit={handleLogin}
+                    onNavigateToMain={handleNavigateToMain}
+                    authError={authError}
+                  />}
+              />
+              <Route
+                path='/signup'
+                element={
+                  <Register
+                    registerError={authError}
+                    onSubmit={handleRegisterSubmit}
+                    onNavigateToMain={handleNavigateToMain}
+                  />}
+              />
               <Route path='*' element={<NotFound onNavigateToMain={handleNavigateToMain} />} />
             </Routes>
             {pathWithFooter && (

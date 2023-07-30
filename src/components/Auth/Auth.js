@@ -9,7 +9,8 @@ function Auth({ values, children, titleText, btnText, paragraphText, linkText, u
     <section className='auth'>
       <Logo onNavigateToMain={onNavigateToMain} />
       <FormTitle titleText={titleText} />
-      <Form btnText={btnText}
+      <Form
+        btnText={btnText}
         values={values}
         type={name}
         name={name}
