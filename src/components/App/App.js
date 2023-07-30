@@ -111,7 +111,6 @@ function App() {
           moviesFromApi = movies;
           localStorage.setItem('movies', JSON.stringify(moviesFromApi));
           handleFilterMovies(searchQuery, moviesFromApi);
-
         })
         .catch(err => {
           console.log(err);
@@ -284,7 +283,7 @@ function App() {
 
   // Профиль
   function handleProfileSubmit(values) {
-
+    setIsLoading(true)
     const { email, name } = values;
     mainApi.setUserInfo({ email, name })
       .then(updatedUser => {
@@ -296,6 +295,7 @@ function App() {
         setProfileMessage('Ошибка при обновлении профиля.');
         console.log(err)
       })
+      .finally(() => setIsLoading(false))
   }
 
   function hadleProfileEdit() {
@@ -330,6 +330,7 @@ function App() {
 
   // регистрация
   function handleRegisterSubmit(values) {
+    setIsLoading(true)
     const { name, email, password } = values;
     mainApi.register({ name, email, password })
       .then(() => {
@@ -339,12 +340,14 @@ function App() {
         console.log(err)
         setAuthError('Неправильный логин или пароль')
       })
+      .finally(() => setIsLoading(false))
+
   }
 
   // Авторизация 
   function handleLogin(values) {
+    setIsLoading(true)
     const { email, password } = values;
-
     mainApi.authorize({ email, password })
       .then(data => {
         setIsLoggedIn(true);
@@ -364,10 +367,12 @@ function App() {
         console.log(err)
         setAuthError('Неправильный логин или пароль')
       })
+      .finally(() => setIsLoading(false))
   }
 
   // Функция для выхода из аккаунта
   const handleLogout = () => {
+    setIsLoading(true)
     mainApi.signout()
       .then(() => {
         Cookies.remove('jwt');
@@ -380,105 +385,109 @@ function App() {
       })
       .catch((error) => {
         console.error("Ошибка выхода из аккаунта:", error);
-      });
+      })
+      .finally(() => setIsLoading(false))
   };
 
 
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      {isLoading ? (
-        <Preloader />
-      ) : (
-        <div className='page'>
-          <div className='page__container'>
-            {pathWithHeader && (
-              <Header
-                isLoggedIn={isLoggedIn}
-                onNavigateToMain={handleNavigateToMain}
-                onNavigateToProfile={handleNavigateToProfile}
-                onNavigateToSignIn={handleNavigateToSignIn}
-                onNavigateToSignUp={handleNavigateToSignUp}
-                isBurgerMenuOpen={isBurgerMenuOpen}
-                onBurgerMenuOpen={handleOpenBurgerMenu}
-                onBurgerMenuClose={handleCloseBurgerMenu}
-              ></Header>
-            )}
-            <Routes>
-              <Route path='/' element={<Main />} />
-              <Route
-                path='/movies'
-                element={<ProtectedRoute
-                  savedMovies={savedMovies}
-                  handleDeleteMovie={handleDeleteMovie}
-                  handleSaveMovie={handleSaveMovie}
-                  loggedIn={isLoggedIn}
-                  element={Movies}
-                  visibleCards={visibleCards}
-                  handleShowMore={handleShowMore}
-                  isMovieLoading={isMovieLoading}
-                  isUserSearchSuccess={isUserSearchSuccess}
-                  onSearchSubmit={handleSearchMovies}
-                  moviesCards={foundMovies}
-                  handleFilterCheckbox={handleFilterCheckbox}
-                />}
-              />
-
-              <Route
-                path='/saved-movies'
-                element={
-                  <ProtectedRoute
-                    handleFilterSavedCheckbox={handleFilterSavedCheckbox}
-                    handleSearchSavedMovies={handleSearchSavedMovies}
-                    handleDeleteMovie={handleDeleteMovie}
+      <div className='page'>
+        <div className='page__container'>
+          {isLoading ? (
+            <Preloader />
+          ) : (
+            <>
+              {pathWithHeader && (
+                <Header
+                  isLoggedIn={isLoggedIn}
+                  onNavigateToMain={handleNavigateToMain}
+                  onNavigateToProfile={handleNavigateToProfile}
+                  onNavigateToSignIn={handleNavigateToSignIn}
+                  onNavigateToSignUp={handleNavigateToSignUp}
+                  isBurgerMenuOpen={isBurgerMenuOpen}
+                  onBurgerMenuOpen={handleOpenBurgerMenu}
+                  onBurgerMenuClose={handleCloseBurgerMenu}
+                ></Header>
+              )}
+              <Routes>
+                <Route path='/' element={<Main />} />
+                <Route
+                  path='/movies'
+                  element={<ProtectedRoute
                     savedMovies={savedMovies}
+                    handleDeleteMovie={handleDeleteMovie}
+                    handleSaveMovie={handleSaveMovie}
                     loggedIn={isLoggedIn}
-                    element={SavedMovies}
-                    moviesCards={savedMovies}
+                    element={Movies}
+                    visibleCards={visibleCards}
+                    handleShowMore={handleShowMore}
+                    isMovieLoading={isMovieLoading}
                     isUserSearchSuccess={isUserSearchSuccess}
+                    onSearchSubmit={handleSearchMovies}
+                    moviesCards={foundMovies}
+                    handleFilterCheckbox={handleFilterCheckbox}
                   />}
-              />
+                />
 
-              <Route
-                path='/profile'
-                element={
-                  <ProtectedRoute
-                    profileMessage={profileMessage}
-                    loggedIn={isLoggedIn}
-                    element={Profile}
-                    isEdit={isProfileEdit}
-                    onSubmit={handleProfileSubmit}
-                    onEditProfile={hadleProfileEdit}
-                    onSignOut={handleLogout}
-                  />
-                }
-              />
-              <Route
-                path='/signin'
-                element={
-                  <Login
-                    onSubmit={handleLogin}
-                    onNavigateToMain={handleNavigateToMain}
-                    authError={authError}
-                  />}
-              />
-              <Route
-                path='/signup'
-                element={
-                  <Register
-                    registerError={authError}
-                    onSubmit={handleRegisterSubmit}
-                    onNavigateToMain={handleNavigateToMain}
-                  />}
-              />
-              <Route path='*' element={<NotFound onNavigateToMain={handleNavigateToMain} />} />
-            </Routes>
-            {pathWithFooter && (
-              <Footer></Footer>
-            )}
-          </div>
+                <Route
+                  path='/saved-movies'
+                  element={
+                    <ProtectedRoute
+                      handleFilterSavedCheckbox={handleFilterSavedCheckbox}
+                      handleSearchSavedMovies={handleSearchSavedMovies}
+                      handleDeleteMovie={handleDeleteMovie}
+                      savedMovies={savedMovies}
+                      loggedIn={isLoggedIn}
+                      element={SavedMovies}
+                      moviesCards={savedMovies}
+                      isUserSearchSuccess={isUserSearchSuccess}
+                    />}
+                />
+
+                <Route
+                  path='/profile'
+                  element={
+                    <ProtectedRoute
+                      profileMessage={profileMessage}
+                      loggedIn={isLoggedIn}
+                      element={Profile}
+                      isEdit={isProfileEdit}
+                      onSubmit={handleProfileSubmit}
+                      onEditProfile={hadleProfileEdit}
+                      onSignOut={handleLogout}
+                    />
+                  }
+                />
+                <Route
+                  path='/signin'
+                  element={
+                    <Login
+                      onSubmit={handleLogin}
+                      onNavigateToMain={handleNavigateToMain}
+                      authError={authError}
+                    />}
+                />
+                <Route
+                  path='/signup'
+                  element={
+                    <Register
+                      registerError={authError}
+                      onSubmit={handleRegisterSubmit}
+                      onNavigateToMain={handleNavigateToMain}
+                    />}
+                />
+                <Route path='*' element={<NotFound onNavigateToMain={handleNavigateToMain} />} />
+              </Routes>
+              {pathWithFooter && (
+                <Footer></Footer>
+              )}
+            </>
+          )}
         </div>
-      )}
+      </div>
+
     </CurrentUserContext.Provider>
 
   );
