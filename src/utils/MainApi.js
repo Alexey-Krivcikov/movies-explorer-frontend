@@ -51,6 +51,7 @@ class MainApi {
   }
 
   authorize({ email, password }) {
+    console.log(this._request)
     return this._request('/signin', {
       method: 'POST',
       credentials: this._credentials,
@@ -121,7 +122,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'https:api.movies.exp1orer.nomoredomains.rocks',
+  baseUrl: 'https://api.movies.exp1orer.nomoredomains.rocks',
   headers: {
     "Content-Type": "application/json",
   },
