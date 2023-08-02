@@ -8,13 +8,20 @@ import CurrentUserContext from '../../contexts/CurrentUserContext'
 import Popup from '../Popup/Popup';
 
 function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, onSubmit, onEditProfile, onSignOut, isEdit }) {
-  console.log(profileMessage)
+  const [isDataChanged, setIsDataChanged] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
+
   useEffect(() => {
     resetForm({ name: currentUser.name, email: currentUser.email }, {});
   }, [currentUser, resetForm]);
+
+  useEffect(() => {
+    const isNameChanged = values.name !== currentUser.name;
+    const isEmailChanged = values.email !== currentUser.email;
+    setIsDataChanged(isNameChanged || isEmailChanged);
+  }, [values, currentUser])
 
   const handleEditProfile = () => {
     setSubmitted(false); // Сбрасываем флаг при нажатии на кнопку "Редактировать"
@@ -32,12 +39,13 @@ function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, 
         </Popup>
         <FormTitle titleText={`Привет, ${currentUser.name}!`}></FormTitle>
         <Form
+          isDataChanged={isDataChanged}
           setSubmitted={setSubmitted}
           name='profile'
           btnText='Сохранить'
           isProfileEdit={isEdit}
           onSubmit={onSubmit}
-          isFormValid={isValid}
+          isFormValid={isValid && isDataChanged}
           values={values}
         >
           <label htmlFor='name' className='profile__input-label'>

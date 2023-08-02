@@ -15,7 +15,6 @@ function Form({ values, onSubmit, name, children, btnText, isProfileEdit, isForm
       } else if (!values.email) {
         values.email = currentUser.email;
       }
-      console.log(values)
       onSubmit(values)
     }
   }
