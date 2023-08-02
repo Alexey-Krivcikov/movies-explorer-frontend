@@ -1,6 +1,7 @@
 .movies-cards {
   padding: 70px 70px 10px;
   min-height: 150px;
+  position: relative;
 }
 
 .movies-cards__list {

@@ -395,6 +395,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <div className='page__container'>
+          {/* <Preloader /> */}
           {isLoading ? (
             <Preloader />
           ) : (
