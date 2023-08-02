@@ -33,6 +33,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState({});
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+  const [isProfilePopupOpen, setIsProfilePopup] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [authError, setAuthError] = useState('');
@@ -290,10 +291,12 @@ function App() {
         setCurrentUser(updatedUser);
         setProfileMessage('Профиль успешно обновлён')
         setIsProfileEdit(false);
+        handleOpenProfilePopup()
       })
       .catch(err => {
         setProfileMessage('Ошибка при обновлении профиля.');
         console.log(err)
+        handleOpenProfilePopup();
       })
       .finally(() => setIsLoading(false))
   }
@@ -326,6 +329,15 @@ function App() {
 
   function handleCloseBurgerMenu() {
     setIsBurgerMenuOpen(false);
+  }
+
+  // Попап Профиля
+  function handleOpenProfilePopup() {
+    setIsProfilePopup(true);
+  }
+
+  function handleCloseProfilePopup() {
+    setIsProfilePopup(false);
   }
 
   // регистрация
@@ -395,7 +407,6 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <div className='page__container'>
-          {/* <Preloader /> */}
           {isLoading ? (
             <Preloader />
           ) : (
@@ -451,6 +462,8 @@ function App() {
                   path='/profile'
                   element={
                     <ProtectedRoute
+                      isProfilePopupOpen={isProfilePopupOpen}
+                      handleCloseProfilePopup={handleCloseProfilePopup}
                       profileMessage={profileMessage}
                       loggedIn={isLoggedIn}
                       element={Profile}

@@ -6,6 +6,8 @@
   width: 410px;
   margin: 0 auto;
   padding: 74px 0 70px;
+  display: flex;
+  flex-direction: column;
 }
 
 .profile__input-label {
@@ -49,9 +51,54 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  color: var(--text-error-color);
+  color: var(--text-main-color);
   margin: 0 auto 20px;
   height: 13px;
+}
+
+.profile__popup-container {
+
+  margin: 0 auto;
+  align-self: center;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: var(--text-main-color);
+  flex-direction: column;
+  position: relative;
+}
+
+.profile__popup-close-btn {
+  background-image: url('../../images/burger-menu_btn-close.svg');
+  width: 22px;
+  height: 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  transition: .5s opacity;
+}
+
+.profile__popup-close-btn:hover {
+  opacity: .7;
+}
+
+.profile__message {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: var(--back-main-color);
+  margin: 0;
+  padding: 10px;
 }
 
 .profile__input_type_e-mail {

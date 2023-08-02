@@ -5,8 +5,10 @@ import Form from '../Form/Form';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { useContext, useState, useEffect } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext'
+import Popup from '../Popup/Popup';
 
-function Profile({ profileMessage, onSubmit, onEditProfile, onSignOut, isEdit }) {
+function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, onSubmit, onEditProfile, onSignOut, isEdit }) {
+  console.log(profileMessage)
   const [submitted, setSubmitted] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, resetForm } = useFormWithValidation();
@@ -22,6 +24,12 @@ function Profile({ profileMessage, onSubmit, onEditProfile, onSignOut, isEdit })
   return (
     <main className='profile'>
       <section className='profile__container'>
+        <Popup isOpen={isProfilePopupOpen}>
+          <div className='profile__popup-container'>
+            <button onClick={handleCloseProfilePopup} className='profile__popup-close-btn' type='button'></button>
+            <p className='profile__message'>{profileMessage}</p>
+          </div>
+        </Popup>
         <FormTitle titleText={`Привет, ${currentUser.name}!`}></FormTitle>
         <Form
           setSubmitted={setSubmitted}
@@ -66,7 +74,6 @@ function Profile({ profileMessage, onSubmit, onEditProfile, onSignOut, isEdit })
           {(isEdit && submitted && !isValid) ?
             <span className='profile__error'>При обновлении профиля произошла ошибка.</span> :
             <span className='profile__error'></span>}
-          {<span className='profile__message'>{profileMessage}</span>}
         </Form>
         {!isEdit && (
           <div className='profile__btns'>
