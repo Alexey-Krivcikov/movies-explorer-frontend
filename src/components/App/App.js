@@ -30,6 +30,7 @@ function App() {
   const [foundMovies, setFoundMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [visibleCards, setVisibleCards] = useState(0);
+  const [isShortFilm, setIsShortFilm] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -54,15 +55,25 @@ function App() {
     }
   }, [])
 
+  // получаем значение чекбокса при перезагрузке страницы
+  useEffect(() => {
+    const savedCheckboxValue = JSON.parse(localStorage.getItem('isShortFilm'));
+    if (savedCheckboxValue === null) {
+      setIsShortFilm(false)
+    }
+    setIsShortFilm(savedCheckboxValue);
+  }, [])
+
+  // Отображение предыдущего поиска при перезагрузке страницы
   useEffect(() => {
     const savedMovies = JSON.parse(localStorage.getItem('foundMovies'));
     if (savedMovies) {
       setFoundMovies(savedMovies)
     } else {
-      handleGetSavedMovies();
+      setFoundMovies([])
+      // handleGetSavedMovies();
     }
   }, [isLoggedIn])
-
 
   // Проверяем, есть ли JWT токен в куках
   useEffect(() => {
@@ -89,8 +100,10 @@ function App() {
   }, []);
 
 
+
   // Поиск фильмов
-  function handleSearchMovies(searchQuery) {
+  function handleSearchMovies(searchQuery, isChecked) {
+
     setIsMoviesLoading(true);
 
     !isUserSearchSuccess && setUserSearchSuccess(true);
@@ -111,7 +124,7 @@ function App() {
         .then((movies) => {
           moviesFromApi = movies;
           localStorage.setItem('movies', JSON.stringify(moviesFromApi));
-          handleFilterMovies(searchQuery, moviesFromApi);
+          handleFilterMoviesByDuration(isChecked, searchQuery, moviesFromApi);
         })
         .catch(err => {
           console.log(err);
@@ -121,32 +134,33 @@ function App() {
           setIsMoviesLoading(false);
         });
     } else {
-      handleFilterMovies(searchQuery, moviesFromApi);
+      handleFilterMoviesByDuration(isChecked, searchQuery, moviesFromApi);
       setIsMoviesLoading(false);
 
     }
-
-
-    // Фильтрация фильмов
-    function handleFilterMovies(searchQuery, moviesFromApi) {
-      localStorage.setItem('searchQuery', searchQuery);
-      const foundMovies = moviesFromApi.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-
-      const checkboxState = localStorage.getItem('isShortFilm');
-      if (checkboxState === 'true') {
-        const filteredFoundMovies = foundMovies.filter((movie) =>
-          movie.duration <= 40);
-        setFoundMovies(filteredFoundMovies);
-        localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
-      } else {
-        setFoundMovies(foundMovies);
-        localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
-      }
-    }
   }
+
+  // new
+  const handleFilterMoviesByDuration = (isChecked, searchQuery, moviesFromApi) => {
+    setIsShortFilm(isChecked)
+    const foundMovies = moviesFromApi.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (isChecked === true) {
+      const filteredFoundMovies = foundMovies.filter(
+        (movie) => movie.duration <= 40
+      );
+      setFoundMovies(filteredFoundMovies);
+      localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
+    } else {
+      setFoundMovies(foundMovies);
+      localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+    }
+    localStorage.setItem('isShortFilm', isChecked);
+    localStorage.setItem('searchQuery', searchQuery)
+  }
+
 
   // Поиск в сохраненных фильмах фильмов
   function handleSearchSavedMovies(searchQuery) {
@@ -171,19 +185,7 @@ function App() {
     } else {
       setSavedMovies(foundSavedMovies);
     }
-  }
 
-
-  // фильтр по чекбоксу 
-  function handleFilterCheckbox() {
-    const checkboxState = localStorage.getItem('isShortFilm');
-    if (!(checkboxState === 'true')) {
-      const filteredFoundMovies = foundMovies.filter((movie) =>
-        movie.duration <= 40);
-      setFoundMovies(filteredFoundMovies);
-    } else {
-      setFoundMovies(JSON.parse(localStorage.getItem('foundMovies')))
-    }
   }
 
   //  фильтр по чекбоксу в сохраненных фильмах  
@@ -428,6 +430,8 @@ function App() {
                 <Route
                   path='/movies'
                   element={<ProtectedRoute
+                    isShortFilm={isShortFilm}
+                    onFilterMoviesByDuration={handleFilterMoviesByDuration}
                     savedMovies={savedMovies}
                     handleDeleteMovie={handleDeleteMovie}
                     handleSaveMovie={handleSaveMovie}
@@ -439,7 +443,6 @@ function App() {
                     isUserSearchSuccess={isUserSearchSuccess}
                     onSearchSubmit={handleSearchMovies}
                     moviesCards={foundMovies}
-                    handleFilterCheckbox={handleFilterCheckbox}
                   />}
                 />
 

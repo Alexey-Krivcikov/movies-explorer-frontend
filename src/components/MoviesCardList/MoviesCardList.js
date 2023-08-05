@@ -3,7 +3,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList({ foundSavedMovies, savedMovies, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
+function MoviesCardList({ isUserSearchSuccess, savedMovies, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
   const moviesCardsItems = moviesCards.map(movieCard => {
     return (
       <li className='movie-card' key={movieCard?.id || movieCard._id}>
@@ -22,10 +22,10 @@ function MoviesCardList({ foundSavedMovies, savedMovies, handleDeleteMovie, hand
       <section className='movies-cards'>
         {isMovieLoading ? (
           <Preloader />
-        ) : moviesCards.length === 0 ? (
-          <p className='movies-cards__not-found'>Фильмы не найдены</p>
-        ) : (
+        ) : isUserSearchSuccess ? (
           <ul className='movies-cards__list'>{moviesCardsItems.slice(0, visibleCards)}</ul>
+        ) : (
+          <p className='movies-cards__not-found'>Фильмы не найдены</p>
         )}
       </section>
       {(moviesCards.length > visibleCards &&
