@@ -153,22 +153,22 @@ function App() {
   // new filter
   const handleFilterMoviesByDuration = (isChecked, searchQuery, moviesFromApi) => {
     setIsShortFilm(isChecked)
-    if (searchQuery !== '') {
-      const foundMovies = moviesFromApi.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+
+    const foundMovies = moviesFromApi.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (isChecked === true) {
+      const filteredFoundMovies = foundMovies.filter(
+        (movie) => movie.duration <= 40
       );
-      if (isChecked === true) {
-        const filteredFoundMovies = foundMovies.filter(
-          (movie) => movie.duration <= 40
-        );
-        setFoundMovies(filteredFoundMovies);
-        localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
-      } else {
-        setFoundMovies(foundMovies);
-        localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
-      }
+      setFoundMovies(filteredFoundMovies);
+      localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
+    } else {
+      setFoundMovies(foundMovies);
+      localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
     }
+
 
     localStorage.setItem('isShortFilm', isChecked);
 
