@@ -1,14 +1,10 @@
-import { useState } from "react";
 import './Checkbox.css';
 
 function Checkbox({ isChecked, searchQuery, onFilterCheckboxChange }) {
-
   const handleCheckboxChange = () => {
     const updatedValue = !isChecked;
     onFilterCheckboxChange(searchQuery, updatedValue);
   }
-
-
 
   return (
     <div className='filter'>

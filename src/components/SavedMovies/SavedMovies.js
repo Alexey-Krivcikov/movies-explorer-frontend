@@ -2,18 +2,20 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './SavedMovies.css';
 
-function SavedMovies({ handleSearchSavedMovies, handleFilterSavedCheckbox, handleDeleteMovie, isUserSearchSuccess, savedMovies, moviesCards, handleMovieLike }) {
+function SavedMovies({ moviesCards, isMovieSearchSuccess, isMovieLoading, isShortFilm, handleShowMore, visibleCards, handleSearchSavedMovies, handleDeleteMovie, savedMovies }) {
   return (
     <main className='saved-movies'>
       <SearchForm
-        handleSearchSavedMovies={handleSearchSavedMovies}
-        handleFilterSavedCheckbox={handleFilterSavedCheckbox}
-        isUserSearchSuccess={isUserSearchSuccess} />
+        isShortFilm={isShortFilm}
+        onSearchMovies={handleSearchSavedMovies}
+        isMovieSearchSuccess={isMovieSearchSuccess} />
       <MoviesCardList
+        isMovieLoading={isMovieLoading}
+        visibleCards={visibleCards}
         moviesCards={moviesCards}
-        handleMovieLike={handleMovieLike}
         savedMovies={savedMovies}
         handleDeleteMovie={handleDeleteMovie}
+        handleShowMore={handleShowMore}
       />
 
     </main>

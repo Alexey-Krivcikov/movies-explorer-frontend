@@ -3,16 +3,15 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ isShortFilm, onFilterMoviesByDuration, savedMovies, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, onSearchSubmit, isUserSearchSuccess, isMovieLoading }) {
+function Movies({ isUserSearch, isMovieSearchSuccess, onSearchMovies, isShortFilm, savedMovies, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
   return (
     <main className='movies'>
       <SearchForm
         isShortFilm={isShortFilm}
-        onFilterMoviesByDuration={onFilterMoviesByDuration}
-        isUserSearchSuccess={isUserSearchSuccess}
-        onSearchSubmit={onSearchSubmit} />
+        onSearchMovies={onSearchMovies}
+        isMovieSearchSuccess={isMovieSearchSuccess} />
       <MoviesCardList
-        isUserSearchSuccess={isUserSearchSuccess}
+        isUserSearch={isUserSearch}
         savedMovies={savedMovies}
         handleDeleteMovie={handleDeleteMovie}
         handleSaveMovie={handleSaveMovie}

@@ -9,7 +9,7 @@ export function useFormWithValidation() {
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value = target.type === "checkbox" ? target.checked : target.value;
+    const value = target.value;
     let error = '';
 
     if (name === 'name') {

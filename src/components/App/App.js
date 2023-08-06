@@ -14,6 +14,7 @@ import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
 import Preloader from "../Preloader/Preloader";
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import GuestRoute from "../GuestRoute/GuestRoute";
 
 import moviesApi from '../../utils/MoviesApi';
 import mainApi from "../../utils/MainApi";
@@ -31,6 +32,8 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [visibleCards, setVisibleCards] = useState(0);
   const [isShortFilm, setIsShortFilm] = useState(false);
+  const [isShortSavedFilm, setIsShortSavedFilm] = useState(false);
+
 
   const [currentUser, setCurrentUser] = useState({});
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -44,7 +47,18 @@ function App() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isMovieLoading, setIsMoviesLoading] = useState(false);
-  const [isUserSearchSuccess, setUserSearchSuccess] = useState(true);
+
+  const [isMovieSearchSuccess, setIsMovieSearchSuccess] = useState(true);
+
+  const [isUserSearch, setIsUserSearch] = useState(false);
+
+  const [lastVisitedPage, setLastVisitedPage] = useState(pathname);
+
+  useEffect(() => {
+    // Сохраняем текущий URL в состояние
+    setLastVisitedPage(pathname);
+    console.log(lastVisitedPage)
+  }, [pathname]);
 
   // управление количеством отображаемых карточек 
   useEffect(() => {
@@ -66,12 +80,17 @@ function App() {
 
   // Отображение предыдущего поиска при перезагрузке страницы
   useEffect(() => {
-    const savedMovies = JSON.parse(localStorage.getItem('foundMovies'));
-    if (savedMovies) {
-      setFoundMovies(savedMovies)
+    const foundMoviesFromStorage = JSON.parse(localStorage.getItem('foundMovies'));
+    const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'))
+    if (foundMoviesFromStorage) {
+      setFoundMovies(foundMoviesFromStorage)
     } else {
       setFoundMovies([])
-      // handleGetSavedMovies();
+    }
+    if (savedMoviesFromStorage) {
+      setSavedMovies(savedMoviesFromStorage)
+    } else {
+      handleGetSavedMovies();
     }
   }, [isLoggedIn])
 
@@ -85,6 +104,8 @@ function App() {
         .then((data) => {
           setCurrentUser(data); // Сохраняем данные пользователя в состояние
           setIsLoggedIn(true)
+          setIsUserSearch(true);
+          navigate(lastVisitedPage, { replace: true });
         })
         .catch((err) => {
           // Обработка ошибки
@@ -103,21 +124,11 @@ function App() {
 
   // Поиск фильмов
   function handleSearchMovies(searchQuery, isChecked) {
-
+    setIsUserSearch(true);
+    !isMovieSearchSuccess && setIsMovieSearchSuccess(true);
     setIsMoviesLoading(true);
 
-    !isUserSearchSuccess && setUserSearchSuccess(true);
-
     let moviesFromApi = JSON.parse(localStorage.getItem('movies'));
-    let storedVisibleCards = JSON.parse(localStorage.getItem("visibleCards"));
-
-    if (moviesFromApi) {
-      setFoundMovies(moviesFromApi);
-    }
-
-    if (storedVisibleCards) {
-      setVisibleCards(storedVisibleCards);
-    }
 
     if (!moviesFromApi) {
       moviesApi.getMovies()
@@ -128,7 +139,7 @@ function App() {
         })
         .catch(err => {
           console.log(err);
-          setUserSearchSuccess(false);
+          setIsMovieSearchSuccess(false);
         })
         .finally(() => {
           setIsMoviesLoading(false);
@@ -140,65 +151,50 @@ function App() {
     }
   }
 
-  // new
+  // new filter
   const handleFilterMoviesByDuration = (isChecked, searchQuery, moviesFromApi) => {
     setIsShortFilm(isChecked)
-    const foundMovies = moviesFromApi.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    if (isChecked === true) {
-      const filteredFoundMovies = foundMovies.filter(
-        (movie) => movie.duration <= 40
+    if (searchQuery !== '') {
+      const foundMovies = moviesFromApi.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      setFoundMovies(filteredFoundMovies);
-      localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
-    } else {
-      setFoundMovies(foundMovies);
-      localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+      if (isChecked === true) {
+        const filteredFoundMovies = foundMovies.filter(
+          (movie) => movie.duration <= 40
+        );
+        setFoundMovies(filteredFoundMovies);
+        localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
+      } else {
+        setFoundMovies(foundMovies);
+        localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+      }
     }
+
     localStorage.setItem('isShortFilm', isChecked);
-    localStorage.setItem('searchQuery', searchQuery)
+
   }
 
-
-  // Поиск в сохраненных фильмах фильмов
-  function handleSearchSavedMovies(searchQuery) {
-    if (savedMovies.length > 0) {
-      handleFilterSavedMovies(searchQuery, savedMovies)
-    }
-  }
 
   // фильтр сохраненных фильмов
-  function handleFilterSavedMovies(searchQuery, savedMovies) {
-    localStorage.setItem('searchQuery', searchQuery);
-    const foundSavedMovies = savedMovies.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const checkboxState = localStorage.getItem('isShortFilm');
-    if (checkboxState === 'true') {
-      const filteredFoundMovies = savedMovies.filter((movie) =>
-        movie.duration <= 40);
-      setSavedMovies(filteredFoundMovies);
-    } else {
-      setSavedMovies(foundSavedMovies);
-    }
-
-  }
-
-  //  фильтр по чекбоксу в сохраненных фильмах  
-  function handleFilterSavedCheckbox() {
-    const checkboxState = localStorage.getItem('isShortFilm');
-    if (!(checkboxState === 'true')) {
-      const filteredFoundMovies = savedMovies.filter((movie) =>
-        movie.duration <= 40);
-      setSavedMovies(filteredFoundMovies);
-    } else {
-      setSavedMovies(JSON.parse(localStorage.getItem('savedMovies')))
+  function handleSearchSavedMovies(searchQuery, isChecked) {
+    setIsShortSavedFilm(isChecked)
+    if (searchQuery !== '') {
+      const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+      const foundSavedMovies = allSavedMovies.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (isChecked === true) {
+        const filteredFoundMovies = foundSavedMovies.filter((movie) =>
+          movie.duration <= 40);
+        setSavedMovies(filteredFoundMovies);
+      } else {
+        setSavedMovies(foundSavedMovies);
+      }
     }
   }
+
   // количество карточек в зависимости от ширины экрана
   function handleResize() {
     const screenWidth = window.innerWidth;
@@ -238,6 +234,7 @@ function App() {
       .then(movies => {
         setSavedMovies(movies);
         localStorage.setItem('savedMovies', JSON.stringify(movies));
+
       })
       .catch(err => {
         console.log(err)
@@ -282,6 +279,7 @@ function App() {
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('foundMovies');
     localStorage.removeItem('isShortFilm');
+    localStorage.removeItem('movies');
   }
 
   // Профиль
@@ -307,7 +305,6 @@ function App() {
     setIsProfileEdit(true);
   }
   // Навигация
-
   function handleNavigateToSignUp() {
     navigate('/signup', { replace: true });
   }
@@ -375,7 +372,7 @@ function App() {
           .catch(err => {
             console.log(err)
           });
-        navigate('/movies', { replace: true });
+        navigate(lastVisitedPage, { replace: true });
       })
       .catch(err => {
         console.log(err)
@@ -395,7 +392,7 @@ function App() {
         handleNavigateToMain();
         setFoundMovies([])
         setIsLoggedIn(false);
-
+        setIsUserSearch(false);
       })
       .catch((error) => {
         console.error("Ошибка выхода из аккаунта:", error);
@@ -430,8 +427,9 @@ function App() {
                 <Route
                   path='/movies'
                   element={<ProtectedRoute
+                    isUserSearch={isUserSearch}
                     isShortFilm={isShortFilm}
-                    onFilterMoviesByDuration={handleFilterMoviesByDuration}
+                    onSearchMovies={handleSearchMovies}
                     savedMovies={savedMovies}
                     handleDeleteMovie={handleDeleteMovie}
                     handleSaveMovie={handleSaveMovie}
@@ -440,8 +438,7 @@ function App() {
                     visibleCards={visibleCards}
                     handleShowMore={handleShowMore}
                     isMovieLoading={isMovieLoading}
-                    isUserSearchSuccess={isUserSearchSuccess}
-                    onSearchSubmit={handleSearchMovies}
+                    isMovieSearchSuccess={isMovieSearchSuccess}
                     moviesCards={foundMovies}
                   />}
                 />
@@ -450,14 +447,17 @@ function App() {
                   path='/saved-movies'
                   element={
                     <ProtectedRoute
-                      handleFilterSavedCheckbox={handleFilterSavedCheckbox}
+                      isMovieLoading={isMovieLoading}
+                      isShortFilm={isShortSavedFilm}
+                      handleShowMore={handleShowMore}
                       handleSearchSavedMovies={handleSearchSavedMovies}
                       handleDeleteMovie={handleDeleteMovie}
+                      moviesCards={savedMovies}
                       savedMovies={savedMovies}
                       loggedIn={isLoggedIn}
                       element={SavedMovies}
-                      moviesCards={savedMovies}
-                      isUserSearchSuccess={isUserSearchSuccess}
+                      isMovieSearchSuccess={isMovieSearchSuccess}
+                      visibleCards={visibleCards}
                     />}
                 />
 
@@ -480,16 +480,23 @@ function App() {
                 <Route
                   path='/signin'
                   element={
-                    <Login
+                    <GuestRoute
                       onSubmit={handleLogin}
                       onNavigateToMain={handleNavigateToMain}
                       authError={authError}
+                      isLoggedIn={isLoggedIn}
+                      lastVisitedPage={lastVisitedPage}
+                      element={Login}
                     />}
+
                 />
                 <Route
                   path='/signup'
                   element={
-                    <Register
+                    <GuestRoute
+                      isLoggedIn={isLoggedIn}
+                      lastVisitedPage={lastVisitedPage}
+                      element={Register}
                       registerError={authError}
                       onSubmit={handleRegisterSubmit}
                       onNavigateToMain={handleNavigateToMain}

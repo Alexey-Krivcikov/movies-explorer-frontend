@@ -2,22 +2,20 @@ import Checkbox from '../Checkbox/Checkbox.js';
 import './SearchForm.css';
 import { useFormWithValidation } from '../../hooks/useForm';
 import { USER_SEARCH_ERROR } from '../../utils/config/constants'
-import { useEffect, useState } from 'react';
-import { useLoaderData, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
-function SearchForm({ isShortFilm, onFilterMoviesByDuration, handleSearchSavedMovies, onSearchSubmit, isUserSearchSuccess }) {
+function SearchForm({ isShortFilm, onSearchMovies, isMovieSearchSuccess }) {
   const [searchQuery, setSearchQuery] = useState('');
-  const { pathname } = useLocation();
-
-  const { values, handleChange, errors, isValid } = useFormWithValidation();
-
+  const [error, setError] = useState('');
+  const errorSearch = 'Нужно ввести ключевое слово.'
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (pathname === '/movies') {
-      onSearchSubmit(searchQuery, isShortFilm);
+    if (searchQuery.trim() === '') {
+      setError(true)
     } else {
-      handleSearchSavedMovies(values.search)
+      setError(false)
+      onSearchMovies(searchQuery, isShortFilm);
     }
   }
 
@@ -39,20 +37,18 @@ function SearchForm({ isShortFilm, onFilterMoviesByDuration, handleSearchSavedMo
               name='search'
               id='search'
               autoComplete='off'
-              required
             />
           </label>
           <button
-            // disabled={!isValid}
             className='search-form__submit-button'
             type='submit'>
             Поиск
           </button>
         </div>
-        <span className='search-form__error'>{errors.search || (!isUserSearchSuccess && USER_SEARCH_ERROR)}</span>
+        <span className='search-form__error'>{(error && errorSearch) || (!isMovieSearchSuccess && USER_SEARCH_ERROR)}</span>
         <Checkbox
           isChecked={isShortFilm}
-          onFilterCheckboxChange={onSearchSubmit}
+          onFilterCheckboxChange={onSearchMovies}
           searchQuery={searchQuery} />
       </form>
     </section>
