@@ -57,7 +57,6 @@ function App() {
   useEffect(() => {
     // Сохраняем текущий URL в состояние
     setLastVisitedPage(pathname);
-    console.log(lastVisitedPage)
   }, [pathname]);
 
   // управление количеством отображаемых карточек 

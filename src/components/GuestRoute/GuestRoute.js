@@ -1,4 +1,4 @@
-import { Route, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 function GuestRoute({ lastVisitedPage, element: Component, isLoggedIn, ...props }) {
   if (isLoggedIn) {

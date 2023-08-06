@@ -1,6 +1,5 @@
 import Checkbox from '../Checkbox/Checkbox.js';
 import './SearchForm.css';
-import { useFormWithValidation } from '../../hooks/useForm';
 import { USER_SEARCH_ERROR } from '../../utils/config/constants'
 import { useState } from 'react';
 
