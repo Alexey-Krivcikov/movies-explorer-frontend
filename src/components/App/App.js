@@ -178,20 +178,19 @@ function App() {
   // фильтр сохраненных фильмов
   function handleSearchSavedMovies(searchQuery, isChecked) {
     setIsShortSavedFilm(isChecked)
-    if (searchQuery !== '') {
-      const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-      const foundSavedMovies = allSavedMovies.filter((movie) =>
-        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      if (isChecked === true) {
-        const filteredFoundMovies = foundSavedMovies.filter((movie) =>
-          movie.duration <= 40);
-        setSavedMovies(filteredFoundMovies);
-      } else {
-        setSavedMovies(foundSavedMovies);
-      }
+    const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    const foundSavedMovies = allSavedMovies.filter((movie) =>
+      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (isChecked === true) {
+      const filteredFoundMovies = foundSavedMovies.filter((movie) =>
+        movie.duration <= 40);
+      setSavedMovies(filteredFoundMovies);
+    } else {
+      setSavedMovies(foundSavedMovies);
     }
+
   }
 
   // количество карточек в зависимости от ширины экрана
