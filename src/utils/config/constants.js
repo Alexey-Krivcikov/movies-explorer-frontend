@@ -1,10 +1,10 @@
 export const MOVIES_API_BASE_URL = 'https://api.nomoreparties.co/beatfilm-movies';
 
 export const API_BASE_URL_LOCALHOST = 'http://localhost:3000';
-export const API_BASE_URL = 'http://localhost:3000';
+export const API_BASE_URL = 'https://api.movies.exp1orer.nomoredomains.rocks';
 
 export const HEADERS = {
-  'Content-Type': 'application/json',
+  "Content-Type": "application/json",
 };
 
 export const CREDENTIALS = 'include';

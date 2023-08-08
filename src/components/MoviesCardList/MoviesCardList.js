@@ -21,6 +21,7 @@ function MoviesCardList({ isUserSearch, handleDeleteMovie, handleSaveMovie, visi
       </li>
     )
   })
+  console.log(isUserSearch)
 
   return (
     <>

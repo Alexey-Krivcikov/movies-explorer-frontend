@@ -85,6 +85,7 @@ function App() {
     const foundMoviesFromStorage = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEYS.FOUND_MOVIES));
     if (foundMoviesFromStorage) {
       setFoundMovies(foundMoviesFromStorage)
+      setIsUserSearch(true);
     } else {
       setFoundMovies([])
     }
@@ -100,7 +101,6 @@ function App() {
         .then((data) => {
           setCurrentUser(data); // Сохраняем данные пользователя в состояние
           setIsLoggedIn(true)
-          setIsUserSearch(true);
           navigate(lastVisitedPage, { replace: true });
         })
         .catch((err) => {
