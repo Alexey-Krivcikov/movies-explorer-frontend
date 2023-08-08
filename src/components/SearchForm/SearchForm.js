@@ -4,7 +4,7 @@ import { USER_SEARCH_ERROR } from '../../utils/config/constants'
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function SearchForm({ isShortFilm, onSearchMovies, isMovieSearchSuccess }) {
+function SearchForm({ getSavedMoviesError, isShortFilm, onSearchMovies, isMovieSearchSuccess }) {
   const { pathname } = useLocation();
   const moviesPath = pathname === '/movies';
   const [searchQuery, setSearchQuery] = useState('');
@@ -55,6 +55,7 @@ function SearchForm({ isShortFilm, onSearchMovies, isMovieSearchSuccess }) {
           </button>
         </div>
         <span className='search-form__error'>{(error && errorSearch) || (!isMovieSearchSuccess && USER_SEARCH_ERROR)}</span>
+        {pathname === '/saved-movies' && <span>{getSavedMoviesError}</span>}
         <Checkbox
           isChecked={isShortFilm}
           onFilterCheckboxChange={onSearchMovies}

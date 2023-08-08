@@ -3,7 +3,7 @@ import Auth from '../Auth/Auth';
 import { useFormWithValidation } from '../../hooks/useForm';
 
 
-function Register({ authError, onSubmit, onNavigateToMain }) {
+function Register({ registerError, onSubmit, onNavigateToMain }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation()
 
   return (
@@ -65,8 +65,8 @@ function Register({ authError, onSubmit, onNavigateToMain }) {
           id='password'
           required
         />
-        <span className='register__error'>{errors.password || authError}</span>
-        {authError && <span className='register__error'>{authError}</span>}
+        <span className='register__error'>{errors.password}</span>
+        {registerError && <span className='register__error'>{registerError}</span>}
       </Auth>
     </main>
 

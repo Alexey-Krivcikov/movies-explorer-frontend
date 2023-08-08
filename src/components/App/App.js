@@ -38,7 +38,9 @@ function App() {
   const [isProfilePopupOpen, setIsProfilePopup] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [authError, setAuthError] = useState('');
+  const [registerError, setRegisterError] = useState('');
 
   const [isProfileEdit, setIsProfileEdit] = useState(false);
   const [profileMessage, setProfileMessage] = useState('');
@@ -266,7 +268,6 @@ function App() {
   // Очистка хранилища
   function clearLocalStorage() {
     localStorage.removeItem("searchQuery")
-    localStorage.removeItem("foundSavedMovies");
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('foundMovies');
     localStorage.removeItem('isShortFilm');
@@ -339,10 +340,11 @@ function App() {
     mainApi.register({ name, email, password })
       .then(() => {
         handleLogin({ email, password });
+        setRegisterError('');
       })
       .catch(err => {
         console.log(err)
-        setAuthError('Неправильный логин или пароль')
+        setRegisterError('Неправильный логин или пароль')
       })
       .finally(() => setIsLoading(false))
 
@@ -366,6 +368,7 @@ function App() {
             console.log(err)
           });
         navigate(lastVisitedPage, { replace: true });
+        setAuthError('');
       })
       .catch(err => {
         console.log(err)
@@ -387,6 +390,8 @@ function App() {
         setIsLoggedIn(false);
         setIsUserSearch(false);
         setIsShortFilm(false);
+        setAuthError('');
+        setRegisterError('');
       })
       .catch((error) => {
         console.error("Ошибка выхода из аккаунта:", error);
@@ -490,7 +495,7 @@ function App() {
                       isLoggedIn={isLoggedIn}
                       lastVisitedPage={lastVisitedPage}
                       element={Register}
-                      registerError={authError}
+                      registerError={registerError}
                       onSubmit={handleRegisterSubmit}
                       onNavigateToMain={handleNavigateToMain}
                     />}
