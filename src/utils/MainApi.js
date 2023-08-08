@@ -123,8 +123,8 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: API_BASE_URL,
-  baseUrl: API_BASE_URL_LOCALHOST,
+  baseUrl: API_BASE_URL,
+  // baseUrl: API_BASE_URL_LOCALHOST,
   headers: HEADERS,
   credentials: CREDENTIALS,
 })
