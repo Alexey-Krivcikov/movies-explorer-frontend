@@ -4,7 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
 
-function MoviesCardList({ isUserSearch, savedMovies, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
+function MoviesCardList({ isUserSearch, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
   const { pathname } = useLocation();
   const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'))
 
@@ -15,7 +15,7 @@ function MoviesCardList({ isUserSearch, savedMovies, handleDeleteMovie, handleSa
           handleDeleteMovie={handleDeleteMovie}
           handleSaveMovie={handleSaveMovie}
           movieCard={movieCard}
-          isSaved={savedMovies.some((savedMovie) => savedMovie.movieId === movieCard.id)}
+          isSaved={savedMoviesFromStorage.some((savedMovie) => savedMovie.movieId === movieCard.id)}
         />
       </li>
     )

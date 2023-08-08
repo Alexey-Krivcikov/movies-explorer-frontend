@@ -13,7 +13,6 @@ function SavedMovies({ moviesCards, isMovieSearchSuccess, isMovieLoading, isShor
         isMovieLoading={isMovieLoading}
         visibleCards={visibleCards}
         moviesCards={moviesCards}
-        savedMovies={savedMovies}
         handleDeleteMovie={handleDeleteMovie}
         handleShowMore={handleShowMore}
       />

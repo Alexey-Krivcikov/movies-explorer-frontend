@@ -32,8 +32,6 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [visibleCards, setVisibleCards] = useState(0);
   const [isShortFilm, setIsShortFilm] = useState(false);
-  const [isShortSavedFilm, setIsShortSavedFilm] = useState(false);
-
 
   const [currentUser, setCurrentUser] = useState({});
   const [isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
@@ -57,6 +55,7 @@ function App() {
   useEffect(() => {
     // Сохраняем текущий URL в состояние
     setLastVisitedPage(pathname);
+    handleGetSavedMovies();
   }, [pathname]);
 
   // управление количеством отображаемых карточек 
@@ -80,16 +79,10 @@ function App() {
   // Отображение предыдущего поиска при перезагрузке страницы
   useEffect(() => {
     const foundMoviesFromStorage = JSON.parse(localStorage.getItem('foundMovies'));
-    const savedMoviesFromStorage = JSON.parse(localStorage.getItem('savedMovies'))
     if (foundMoviesFromStorage) {
       setFoundMovies(foundMoviesFromStorage)
     } else {
       setFoundMovies([])
-    }
-    if (savedMoviesFromStorage) {
-      setSavedMovies(savedMoviesFromStorage)
-    } else {
-      handleGetSavedMovies();
     }
   }, [isLoggedIn])
 
@@ -179,7 +172,6 @@ function App() {
 
   // фильтр сохраненных фильмов
   function handleSearchSavedMovies(searchQuery, isChecked) {
-    setIsShortSavedFilm(isChecked)
     const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
     const foundSavedMovies = allSavedMovies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -234,7 +226,6 @@ function App() {
       .then(movies => {
         setSavedMovies(movies);
         localStorage.setItem('savedMovies', JSON.stringify(movies));
-
       })
       .catch(err => {
         console.log(err)
@@ -451,12 +442,10 @@ function App() {
                   element={
                     <ProtectedRoute
                       isMovieLoading={isMovieLoading}
-                      isShortFilm={isShortSavedFilm}
                       handleShowMore={handleShowMore}
                       handleSearchSavedMovies={handleSearchSavedMovies}
                       handleDeleteMovie={handleDeleteMovie}
                       moviesCards={savedMovies}
-                      savedMovies={savedMovies}
                       loggedIn={isLoggedIn}
                       element={SavedMovies}
                       isMovieSearchSuccess={isMovieSearchSuccess}
