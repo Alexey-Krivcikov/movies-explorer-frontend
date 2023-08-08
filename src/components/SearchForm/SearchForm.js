@@ -1,12 +1,22 @@
 import Checkbox from '../Checkbox/Checkbox.js';
 import './SearchForm.css';
 import { USER_SEARCH_ERROR } from '../../utils/config/constants'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function SearchForm({ isShortFilm, onSearchMovies, isMovieSearchSuccess }) {
+  const { pathname } = useLocation();
+  const moviesPath = pathname === '/movies';
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
   const errorSearch = 'Нужно ввести ключевое слово.'
+
+  useEffect(() => {
+    const lastSearchQuery = localStorage.getItem('searchQuery');
+    if (moviesPath) {
+      setSearchQuery(lastSearchQuery);
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();

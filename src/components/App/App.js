@@ -153,25 +153,27 @@ function App() {
   // new filter
   const handleFilterMoviesByDuration = (isChecked, searchQuery, moviesFromApi) => {
     setIsShortFilm(isChecked)
-
-    const foundMovies = moviesFromApi.filter((movie) =>
-      movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    if (isChecked === true) {
-      const filteredFoundMovies = foundMovies.filter(
-        (movie) => movie.duration <= 40
-      );
-      setFoundMovies(filteredFoundMovies);
-      localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
-    } else {
-      setFoundMovies(foundMovies);
-      localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
-    }
-
-
     localStorage.setItem('isShortFilm', isChecked);
-
+    if (searchQuery === null) {
+      setIsUserSearch(false);
+      return
+    } else {
+      const foundMovies = moviesFromApi.filter((movie) =>
+        movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      if (isChecked === true) {
+        const filteredFoundMovies = foundMovies.filter(
+          (movie) => movie.duration <= 40
+        );
+        setFoundMovies(filteredFoundMovies);
+        localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
+      } else {
+        setFoundMovies(foundMovies);
+        localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+      }
+      localStorage.setItem('searchQuery', searchQuery);
+    }
   }
 
 
@@ -393,6 +395,7 @@ function App() {
         setFoundMovies([])
         setIsLoggedIn(false);
         setIsUserSearch(false);
+        setIsShortFilm(false);
       })
       .catch((error) => {
         console.error("Ошибка выхода из аккаунта:", error);
