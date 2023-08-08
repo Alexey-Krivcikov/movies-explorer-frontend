@@ -39,7 +39,6 @@
 .form__submit-btn_disabled {
   background-color: var(--text-schredule-color);
   color: var(--text-disable-btn-color);
-  margin: 20px 0 0;
 }
 
 .form__submit-btn:hover {
@@ -62,6 +61,10 @@
   .form__submit-btn {
     width: 260px;
     padding: 15px 0;
+  }
+
+  .form__submit-btn {
+    margin-bottom: 14px;
   }
 
   .form_type_profile {

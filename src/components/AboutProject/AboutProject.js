@@ -1,29 +1,30 @@
 import './AboutProject.css';
 import SectionTitle from '../SectionTitle/SectionTitle';
+import * as constants from '../../utils/config/constants';
 
 function AboutProject() {
   return (
     <section id='aboutProject' className='aboutProject'>
       <div className='aboutProject__container'>
-        <SectionTitle text={'О проекте'} />
+        <SectionTitle text={constants.PROJECT_TITLE} />
         <ul className='aboutProject__description'>
           <li className='aboutProject__description-item'>
-            <h3 className='aboutProject__description-title'>Дипломный проект включал 5 этапов</h3>
-            <p className='aboutProject__description-text'>Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
+            <h3 className='aboutProject__description-title'>{constants.PROJECT_STAGES[0].title}</h3>
+            <p className='aboutProject__description-text'>{constants.PROJECT_STAGES[0].text}</p>
           </li>
           <li className='aboutProject__description-item'>
-            <h3 className='aboutProject__description-title'>На выполнение диплома ушло 5 недель</h3>
-            <p className='aboutProject__description-text'>У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
+            <h3 className='aboutProject__description-title'>{constants.PROJECT_STAGES[1].title}</h3>
+            <p className='aboutProject__description-text'>{constants.PROJECT_STAGES[1].text}</p>
           </li>
         </ul>
         <ul className='aboutProject__schedule'>
           <li className='aboutProject__schedule-item'>
-            <h4 className='aboutProject__schedule-title'>1&nbsp;неделя</h4>
-            <p className='aboutProject__schedule-text'>Back-end</p>
+            <h4 className='aboutProject__schedule-title'>{constants.SCHEDULE[0].week}</h4>
+            <p className='aboutProject__schedule-text'>{constants.SCHEDULE[0].text}</p>
           </li>
           <li className='aboutProject__schedule-item aboutProject__schedule-item_type_wide'>
-            <h4 className='aboutProject__schedule-title aboutProject__schedule-title_type_wide'>4 недели</h4>
-            <p className='aboutProject__schedule-text'>Front-end</p>
+            <h4 className='aboutProject__schedule-title aboutProject__schedule-title_type_wide'>{constants.SCHEDULE[1].week}</h4>
+            <p className='aboutProject__schedule-text'>{constants.SCHEDULE[1].text}</p>
           </li>
         </ul>
       </div>

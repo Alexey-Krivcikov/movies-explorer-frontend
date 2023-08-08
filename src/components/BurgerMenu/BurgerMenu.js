@@ -2,6 +2,7 @@ import './BurgerMenu.css';
 import Popup from '../Popup/Popup';
 import { NavLink } from 'react-router-dom';
 import ProfileBtn from '../ProfileBtn/ProfileBtn';
+import { MAIN_NAVIGATION, MOVIES_NAVIGATION, SAVED_MOVIES_NAVIGATION } from '../../utils/config/constants'
 
 
 function BurgerMenu({ onNavigateToProfile, isOpen, onClose }) {
@@ -15,13 +16,13 @@ function BurgerMenu({ onNavigateToProfile, isOpen, onClose }) {
           <li className='burger-menu__nav-item'>
             <ul className='burger-menu__links-list'>
               <li className='burger-menu__link-item'>
-                <NavLink className={burgerMenuNavLink} onClick={onClose} to='/'>Главная</NavLink>
+                <NavLink className={burgerMenuNavLink} onClick={onClose} to='/'>{MAIN_NAVIGATION}</NavLink>
               </li>
               <li className='burger-menu__link-item'>
-                <NavLink className={burgerMenuNavLink} onClick={onClose} to='/movies'>Фильмы</NavLink>
+                <NavLink className={burgerMenuNavLink} onClick={onClose} to='/movies'>{MOVIES_NAVIGATION}</NavLink>
               </li>
               <li className='burger-menu__link-item'>
-                <NavLink className={burgerMenuNavLink} onClick={onClose} to='/saved-movies'>Сохранённые фильмы</NavLink>
+                <NavLink className={burgerMenuNavLink} onClick={onClose} to='/saved-movies'>{SAVED_MOVIES_NAVIGATION}</NavLink>
               </li>
             </ul>
           </li>

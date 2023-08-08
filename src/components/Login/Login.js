@@ -1,51 +1,56 @@
+import { useFormWithValidation } from '../../hooks/useForm';
 import Auth from '../Auth/Auth';
 import './Login.css';
+import * as constants from '../../utils/config/constants';
 
-function Login({ onSubmit, onNavigateToMain, onLogin, isFormValid }) {
+function Login({ authError, onSubmit, onNavigateToMain }) {
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
   return (
     <main className='login'>
       <Auth
-        titleText='Рады видеть!'
-        btnText='Войти'
-        paragraphText='Ещё не'
+        values={values}
+        titleText={constants.LOGIN_TITLE}
+        btnText={constants.LOGIN_BUTTON_TEXT}
+        paragraphText={constants.LOGIN_PARAGRAPH_TEXT}
         url='/signup'
-        linkText='Регистрация'
+        linkText={constants.LOGIN_LINK_TEXT}
         name='login'
         onSubmit={onSubmit}
-        isFormValid={isFormValid}
+        isFormValid={isValid}
         onNavigateToMain={onNavigateToMain}
-        onLogin={onLogin}
       >
         <label htmlFor='email' className='login__input-label'>
           E-mail
         </label>
         <input
+          value={values.email || ''}
+          onChange={handleChange}
           placeholder='E-mail'
           type='email'
           className='login__input'
           name='email'
           id='email'
-          defaultValue='pochta@yandex.ru'
           required
         />
-        <span className='login__error'></span>
+        <span className='login__error'>{errors.email}</span>
         <label htmlFor='password' className='login__input-label'>
           Пароль
         </label>
         <input
+          value={values.password || ''}
+          onChange={handleChange}
           placeholder='Пароль'
           type='password'
           className='login__input'
           name='password'
           id='password'
-          minLength='6'
-          maxLength='30'
           required
         />
-        <span className='login__error'></span>
+        <span className='login__error'>{errors.password}</span>
+        {authError && <span className='login__error'>{authError}</span>}
       </Auth>
     </main>
-  )
+  );
 }
 
 export default Login;
