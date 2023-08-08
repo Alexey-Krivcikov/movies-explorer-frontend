@@ -6,6 +6,7 @@ import { useFormWithValidation } from '../../hooks/useForm';
 import { useContext, useState, useEffect } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import Popup from '../Popup/Popup';
+import { PROFILE_BUTTONS_TEXT, PROFILE_UPDATE_ERROR_MESSAGE } from '../../utils/config/constants';
 
 function Profile({ setIsProfileEdit, isProfilePopupOpen, handleCloseProfilePopup, profileMessage, onSubmit, onEditProfile, onSignOut, isEdit }) {
   const [isDataChanged, setIsDataChanged] = useState(false);
@@ -80,16 +81,16 @@ function Profile({ setIsProfileEdit, isProfilePopupOpen, handleCloseProfilePopup
           />
           {<span className='profile__error'>{errors.name || errors.email}</span>}
           {(isEdit && submitted && !isValid) ?
-            <span className='profile__error'>При обновлении профиля произошла ошибка.</span> :
+            <span className='profile__error'>{PROFILE_UPDATE_ERROR_MESSAGE}</span> :
             <span className='profile__error'></span>}
         </Form>
         {!isEdit && (
           <div className='profile__btns'>
             <button className='profile__btn' type='button' onClick={handleEditProfile}>
-              Редактировать
+              {PROFILE_BUTTONS_TEXT.edit}
             </button>
             <button className='profile__btn profile__btn_type_logout' type='button' onClick={onSignOut}>
-              Выйти из аккаунта
+              {PROFILE_BUTTONS_TEXT.logout}
             </button>
           </div>
         )}

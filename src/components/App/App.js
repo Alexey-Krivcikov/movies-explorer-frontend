@@ -20,6 +20,8 @@ import moviesApi from '../../utils/MoviesApi';
 import mainApi from "../../utils/MainApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
+import * as constants from '../../utils/config/constants';
+
 
 function App() {
   const navigate = useNavigate();
@@ -71,7 +73,7 @@ function App() {
 
   // получаем значение чекбокса при перезагрузке страницы
   useEffect(() => {
-    const savedCheckboxValue = JSON.parse(localStorage.getItem('isShortFilm'));
+    const savedCheckboxValue = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEYS.IS_SHORT_FILM));
     if (savedCheckboxValue === null) {
       setIsShortFilm(false)
     }
@@ -80,7 +82,7 @@ function App() {
 
   // Отображение предыдущего поиска при перезагрузке страницы
   useEffect(() => {
-    const foundMoviesFromStorage = JSON.parse(localStorage.getItem('foundMovies'));
+    const foundMoviesFromStorage = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEYS.FOUND_MOVIES));
     if (foundMoviesFromStorage) {
       setFoundMovies(foundMoviesFromStorage)
     } else {
@@ -122,13 +124,13 @@ function App() {
     !isMovieSearchSuccess && setIsMovieSearchSuccess(true);
     setIsMoviesLoading(true);
 
-    let moviesFromApi = JSON.parse(localStorage.getItem('movies'));
+    let moviesFromApi = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEYS.MOVIES));
 
     if (!moviesFromApi) {
       moviesApi.getMovies()
         .then((movies) => {
           moviesFromApi = movies;
-          localStorage.setItem('movies', JSON.stringify(moviesFromApi));
+          localStorage.setItem(constants.LOCAL_STORAGE_KEYS.MOVIES, JSON.stringify(moviesFromApi));
           handleFilterMoviesByDuration(isChecked, searchQuery, moviesFromApi);
         })
         .catch(err => {
@@ -148,7 +150,7 @@ function App() {
   // new filter
   const handleFilterMoviesByDuration = (isChecked, searchQuery, moviesFromApi) => {
     setIsShortFilm(isChecked)
-    localStorage.setItem('isShortFilm', isChecked);
+    localStorage.setItem(constants.LOCAL_STORAGE_KEYS.IS_SHORT_FILM, isChecked);
     if (searchQuery === null) {
       setIsUserSearch(false);
       return
@@ -159,29 +161,29 @@ function App() {
       );
       if (isChecked === true) {
         const filteredFoundMovies = foundMovies.filter(
-          (movie) => movie.duration <= 40
+          (movie) => movie.duration <= constants.SHORT_FILM_DURATION
         );
         setFoundMovies(filteredFoundMovies);
-        localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMovies));
+        localStorage.setItem(constants.LOCAL_STORAGE_KEYS.FOUND_MOVIES, JSON.stringify(filteredFoundMovies));
       } else {
         setFoundMovies(foundMovies);
-        localStorage.setItem('foundMovies', JSON.stringify(foundMovies));
+        localStorage.setItem(constants.LOCAL_STORAGE_KEYS.FOUND_MOVIES, JSON.stringify(foundMovies));
       }
-      localStorage.setItem('searchQuery', searchQuery);
+      localStorage.setItem(constants.LOCAL_STORAGE_KEYS.SEARCH_QUERY, searchQuery);
     }
   }
 
 
   // фильтр сохраненных фильмов
   function handleSearchSavedMovies(searchQuery, isChecked) {
-    const allSavedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    const allSavedMovies = JSON.parse(localStorage.getItem(constants.LOCAL_STORAGE_KEYS.SAVED_MOVIES));
     const foundSavedMovies = allSavedMovies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
       movie.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
     );
     if (isChecked === true) {
       const filteredFoundMovies = foundSavedMovies.filter((movie) =>
-        movie.duration <= 40);
+        movie.duration <= constants.SHORT_FILM_DURATION);
       setSavedMovies(filteredFoundMovies);
     } else {
       setSavedMovies(foundSavedMovies);
@@ -194,11 +196,11 @@ function App() {
     const screenWidth = window.innerWidth;
 
     setVisibleCards(
-      screenWidth >= 1280
+      screenWidth >= constants.VISIBLE_CARDS_SCREEN_WIDTH.LARGE
         ? 4
-        : screenWidth >= 990
+        : screenWidth >= constants.VISIBLE_CARDS_SCREEN_WIDTH.MEDIUM
           ? 3
-          : screenWidth >= 768
+          : screenWidth >= constants.VISIBLE_CARDS_SCREEN_WIDTH.SMALL
             ? 2
             : 5
     )
@@ -209,13 +211,13 @@ function App() {
     const screenWidth = window.innerWidth;
     let additionalCards = 0;
 
-    if (screenWidth >= 1280) {
+    if (screenWidth >= constants.VISIBLE_CARDS_SCREEN_WIDTH.LARGE) {
       additionalCards = 4;
-    } else if (screenWidth >= 990) {
+    } else if (screenWidth >= constants.VISIBLE_CARDS_SCREEN_WIDTH.MEDIUM) {
       additionalCards = 3;
-    } else if (screenWidth >= 768) {
+    } else if (screenWidth >= constants.VISIBLE_CARDS_SCREEN_WIDTH.SMALL) {
       additionalCards = 2;
-    } else if (screenWidth >= 320) {
+    } else if (screenWidth >= constants.VISIBLE_CARDS_SCREEN_WIDTH.MOBILE) {
       additionalCards = 2;
     }
 
@@ -227,7 +229,7 @@ function App() {
     mainApi.getMovies()
       .then(movies => {
         setSavedMovies(movies);
-        localStorage.setItem('savedMovies', JSON.stringify(movies));
+        localStorage.setItem(constants.LOCAL_STORAGE_KEYS.SAVED_MOVIES, JSON.stringify(movies));
       })
       .catch(err => {
         console.log(err)
@@ -244,7 +246,7 @@ function App() {
         .then(savedMovie => {
           const updatedSavedMovies = [...savedMovies, savedMovie];
           setSavedMovies(updatedSavedMovies);
-          localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+          localStorage.setItem(constants.LOCAL_STORAGE_KEYS.SAVED_MOVIES, JSON.stringify(updatedSavedMovies));
         })
         .catch(err => {
           console.log(err);
@@ -258,7 +260,7 @@ function App() {
       .then(res => {
         const updatedSavedMovies = savedMovies.filter(savedMovie => savedMovie._id !== movieId);
         setSavedMovies(updatedSavedMovies);
-        localStorage.setItem('savedMovies', JSON.stringify(updatedSavedMovies));
+        localStorage.setItem(constants.LOCAL_STORAGE_KEYS.SAVED_MOVIES, JSON.stringify(updatedSavedMovies));
       })
       .catch(err => {
         console.log(err)
@@ -267,11 +269,11 @@ function App() {
 
   // Очистка хранилища
   function clearLocalStorage() {
-    localStorage.removeItem("searchQuery")
-    localStorage.removeItem('savedMovies');
-    localStorage.removeItem('foundMovies');
-    localStorage.removeItem('isShortFilm');
-    localStorage.removeItem('movies');
+    localStorage.removeItem(constants.LOCAL_STORAGE_KEYS.SEARCH_QUERY)
+    localStorage.removeItem(constants.LOCAL_STORAGE_KEYS.SAVED_MOVIES);
+    localStorage.removeItem(constants.LOCAL_STORAGE_KEYS.FOUND_MOVIES);
+    localStorage.removeItem(constants.LOCAL_STORAGE_KEYS.IS_SHORT_FILM);
+    localStorage.removeItem(constants.LOCAL_STORAGE_KEYS.MOVIES);
   }
 
   // Профиль
@@ -281,11 +283,11 @@ function App() {
     mainApi.setUserInfo({ email, name })
       .then(updatedUser => {
         setCurrentUser(updatedUser);
-        setProfileMessage('Профиль успешно обновлён')
+        setProfileMessage(constants.PROFILE_UPDATE_MESSAGE)
         handleOpenProfilePopup()
       })
       .catch(err => {
-        setProfileMessage('Ошибка при обновлении профиля.');
+        setProfileMessage(constants.PROFILE_UPDATE_ERROR_MESSAGE);
         console.log(err)
         handleOpenProfilePopup();
       })
@@ -344,7 +346,7 @@ function App() {
       })
       .catch(err => {
         console.log(err)
-        setRegisterError('Неправильный логин или пароль')
+        setRegisterError(constants.AUTH_ERROR_MESSAGE)
       })
       .finally(() => setIsLoading(false))
 
@@ -372,7 +374,7 @@ function App() {
       })
       .catch(err => {
         console.log(err)
-        setAuthError('Неправильный логин или пароль')
+        setAuthError(constants.AUTH_ERROR_MESSAGE)
       })
       .finally(() => setIsLoading(false))
   }
@@ -394,7 +396,7 @@ function App() {
         setRegisterError('');
       })
       .catch((error) => {
-        console.error("Ошибка выхода из аккаунта:", error);
+        console.error(error);
       })
       .finally(() => setIsLoading(false))
   };

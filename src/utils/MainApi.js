@@ -1,3 +1,4 @@
+import { API_BASE_URL, HEADERS, CREDENTIALS, API_BASE_URL_LOCALHOST } from './config/constants';
 class MainApi {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -122,12 +123,10 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  // baseUrl: 'https://api.movies.exp1orer.nomoredomains.rocks',
-  baseUrl: 'http://localhost:3000',
-  headers: {
-    "Content-Type": "application/json",
-  },
-  credentials: 'include',
+  // baseUrl: API_BASE_URL,
+  baseUrl: API_BASE_URL_LOCALHOST,
+  headers: HEADERS,
+  credentials: CREDENTIALS,
 })
 
 export default mainApi;

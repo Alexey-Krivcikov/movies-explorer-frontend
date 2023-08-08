@@ -1,7 +1,7 @@
 import { useFormWithValidation } from '../../hooks/useForm';
 import Auth from '../Auth/Auth';
 import './Login.css';
-
+import * as constants from '../../utils/config/constants';
 
 function Login({ authError, onSubmit, onNavigateToMain }) {
   const { values, handleChange, errors, isValid } = useFormWithValidation();
@@ -9,11 +9,11 @@ function Login({ authError, onSubmit, onNavigateToMain }) {
     <main className='login'>
       <Auth
         values={values}
-        titleText='Рады видеть!'
-        btnText='Войти'
-        paragraphText='Ещё не'
+        titleText={constants.LOGIN_TITLE}
+        btnText={constants.LOGIN_BUTTON_TEXT}
+        paragraphText={constants.LOGIN_PARAGRAPH_TEXT}
         url='/signup'
-        linkText='Регистрация'
+        linkText={constants.LOGIN_LINK_TEXT}
         name='login'
         onSubmit={onSubmit}
         isFormValid={isValid}
@@ -50,7 +50,7 @@ function Login({ authError, onSubmit, onNavigateToMain }) {
         {authError && <span className='login__error'>{authError}</span>}
       </Auth>
     </main>
-  )
+  );
 }
 
 export default Login;

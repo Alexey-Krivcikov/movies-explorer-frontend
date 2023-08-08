@@ -1,4 +1,5 @@
 import './Checkbox.css';
+import { CHECKBOX_SHORT_FILM } from '../../utils/config/constants'
 
 function Checkbox({ isChecked, searchQuery, onFilterCheckboxChange }) {
 
@@ -18,7 +19,7 @@ function Checkbox({ isChecked, searchQuery, onFilterCheckboxChange }) {
           className='filter-invisible-checkbox' />
         <span className='filter-visible-checkbox filter-visible-checkbox_type_checked'></span>
       </label>
-      <p className='filter-text'>Короткометражки</p>
+      <p className='filter-text'>{CHECKBOX_SHORT_FILM}</p>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import Logo from '../Logo/Logo';
 import Form from '../Form/Form';
 import FormTitle from '../FormTitle/FormTitle';
 import './Auth.css';
+import { AUTH_PARAGRAPH_SUFFIX } from '../../utils/config/constants'
 
 function Auth({ values, children, titleText, btnText, paragraphText, linkText, url, name, onSubmit, isFormValid, onNavigateToMain }) {
   return (
@@ -19,7 +20,7 @@ function Auth({ values, children, titleText, btnText, paragraphText, linkText, u
         {children}
       </Form>
       <div className='auth__container'>
-        <p className='auth__text'>{`${paragraphText} зарегистрированы?`}</p>
+        <p className='auth__text'>{`${paragraphText} ${AUTH_PARAGRAPH_SUFFIX}`}</p>
         <Link className='auth__link' to={url}>
           {linkText}
         </Link>

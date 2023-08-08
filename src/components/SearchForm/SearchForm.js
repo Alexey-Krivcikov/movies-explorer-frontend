@@ -1,18 +1,18 @@
 import Checkbox from '../Checkbox/Checkbox.js';
 import './SearchForm.css';
-import { USER_SEARCH_ERROR } from '../../utils/config/constants'
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { USER_SEARCH_ERROR, LOCAL_STORAGE_KEYS, ERROR_SEARCH } from '../../utils/config/constants';
 
 function SearchForm({ getSavedMoviesError, isShortFilm, onSearchMovies, isMovieSearchSuccess }) {
   const { pathname } = useLocation();
   const moviesPath = pathname === '/movies';
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
-  const errorSearch = 'Нужно ввести ключевое слово.'
+
 
   useEffect(() => {
-    const lastSearchQuery = localStorage.getItem('searchQuery');
+    const lastSearchQuery = localStorage.getItem(LOCAL_STORAGE_KEYS.SEARCH_QUERY);
     if (moviesPath) {
       setSearchQuery(lastSearchQuery);
     }
@@ -54,7 +54,7 @@ function SearchForm({ getSavedMoviesError, isShortFilm, onSearchMovies, isMovieS
             Поиск
           </button>
         </div>
-        <span className='search-form__error'>{(error && errorSearch) || (!isMovieSearchSuccess && USER_SEARCH_ERROR)}</span>
+        <span className='search-form__error'>{(error && ERROR_SEARCH) || (!isMovieSearchSuccess && USER_SEARCH_ERROR)}</span>
         {pathname === '/saved-movies' && <span>{getSavedMoviesError}</span>}
         <Checkbox
           isChecked={isShortFilm}

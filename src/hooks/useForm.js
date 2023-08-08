@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { ERROR_MESSAGES, NAME_REGEX, EMAIL_REGEX, PASSWORD_REGEX, SEARCH_REGEX } from "../utils/config/constants";
 
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
@@ -13,27 +14,23 @@ export function useFormWithValidation() {
     let error = '';
 
     if (name === 'name') {
-      const nameRegex = /^[A-Za-zА-Яа-я\s-]+$/;
-      if (!nameRegex.test(value)) {
-        error = 'Имя должно содержать только латиницу, кириллицу, пробел или дефис.';
+      if (!NAME_REGEX.test(value)) {
+        error = ERROR_MESSAGES.name;
       }
     }
     if (name === 'email') {
-      const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-      if (!emailRegex.test(value)) {
-        error = 'Введите корректный email.';
+      if (!EMAIL_REGEX.test(value)) {
+        error = ERROR_MESSAGES.email;
       }
     }
     if (name === 'password') {
-      const passwordRegex = /.+/;
-      if (!passwordRegex.test(value)) {
-        error = 'Пароль обязателен.';
+      if (!PASSWORD_REGEX.test(value)) {
+        error = ERROR_MESSAGES.password;
       }
     }
     if (name === 'search') {
-      const passwordRegex = /.+/;
-      if (!passwordRegex.test(value)) {
-        error = 'Нужно ввести ключевое слово.';
+      if (!SEARCH_REGEX.test(value)) {
+        error = ERROR_MESSAGES.search;
       }
     }
 

@@ -1,14 +1,13 @@
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { BEAT_FILM_URL, MOVIE_HOUR, LOCAL_STORAGE_KEYS } from '../../utils/config/constants';
 
 function MoviesCard({ isSaved, handleDeleteMovie, handleSaveMovie, movieCard }) {
   const { pathname } = useLocation();
   const [isSavedFilm, setSetSavedFilm] = useState(!!isSaved);
   const [movieId, setMovieId] = useState('');
-  const savedMovies = JSON.parse(localStorage.getItem('savedMovies')) || [];
-
-  const BEAT_FILM_URL = 'https://api.nomoreparties.co';
+  const savedMovies = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.SAVED_MOVIES));
   const savedMoviesPathName = pathname === '/saved-movies';
 
   const movie = {
@@ -19,8 +18,8 @@ function MoviesCard({ isSaved, handleDeleteMovie, handleSaveMovie, movieCard }) 
   };
 
   function getTimeFromMins(mins) {
-    const hours = Math.trunc(mins / 60);
-    const minutes = mins % 60;
+    const hours = Math.trunc(mins / MOVIE_HOUR);
+    const minutes = mins % MOVIE_HOUR;
     return `${hours}ч ${minutes}м`;
   };
 

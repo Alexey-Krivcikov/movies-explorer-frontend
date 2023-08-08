@@ -3,6 +3,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import { useLocation } from 'react-router-dom';
+import { NO_MOVIES_FOUND, SHOW_MORE } from '../../utils/config/constants';
 
 function MoviesCardList({ isUserSearch, handleDeleteMovie, handleSaveMovie, visibleCards, handleShowMore, moviesCards, isMovieLoading }) {
   const { pathname } = useLocation();
@@ -29,21 +30,21 @@ function MoviesCardList({ isUserSearch, handleDeleteMovie, handleSaveMovie, visi
             isMovieLoading ?
               (<Preloader />) : (moviesCardsItems.length !== 0 ?
                 (<ul className='movies-cards__list'>{moviesCardsItems.slice(0, visibleCards)}</ul>)
-                : (<p className='movies-cards__not-found'>Фильмы не найдены</p>))
+                : (<p className='movies-cards__not-found'>{NO_MOVIES_FOUND}</p>))
           ) : (null)
         )}
         {pathname === '/saved-movies' && (
           savedMoviesFromStorage.length !== 0 ? (
             moviesCardsItems.length !== 0 ?
               (<ul className='movies-cards__list'>{moviesCardsItems.slice(0, visibleCards)}</ul>)
-              : (<p className='movies-cards__not-found'>Фильмы не найдены</p>)
+              : (<p className='movies-cards__not-found'>{NO_MOVIES_FOUND}</p>)
           ) : (null)
 
         )}
       </section>
       {(moviesCards.length > visibleCards &&
         <button onClick={handleShowMore} className='movies__btn' type='button'>
-          Ещё
+          {SHOW_MORE}
         </button>
       )}
     </>
