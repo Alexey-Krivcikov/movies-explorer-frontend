@@ -288,7 +288,6 @@ function App() {
       .then(updatedUser => {
         setCurrentUser(updatedUser);
         setProfileMessage('Профиль успешно обновлён')
-        setIsProfileEdit(false);
         handleOpenProfilePopup()
       })
       .catch(err => {
@@ -296,7 +295,10 @@ function App() {
         console.log(err)
         handleOpenProfilePopup();
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => {
+        setIsLoading(false)
+        setIsProfileEdit(false)
+      })
   }
 
   function hadleProfileEdit() {
@@ -463,6 +465,7 @@ function App() {
                   path='/profile'
                   element={
                     <ProtectedRoute
+                      setIsProfileEdit={setIsProfileEdit}
                       isProfilePopupOpen={isProfilePopupOpen}
                       handleCloseProfilePopup={handleCloseProfilePopup}
                       profileMessage={profileMessage}

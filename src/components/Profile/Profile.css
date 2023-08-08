@@ -51,7 +51,7 @@
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-  color: var(--text-main-color);
+  color: var(--text-error-color);
   margin: 0 auto 20px;
   height: 13px;
 }

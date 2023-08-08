@@ -7,7 +7,7 @@ import { useContext, useState, useEffect } from 'react';
 import CurrentUserContext from '../../contexts/CurrentUserContext'
 import Popup from '../Popup/Popup';
 
-function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, onSubmit, onEditProfile, onSignOut, isEdit }) {
+function Profile({ setIsProfileEdit, isProfilePopupOpen, handleCloseProfilePopup, profileMessage, onSubmit, onEditProfile, onSignOut, isEdit }) {
   const [isDataChanged, setIsDataChanged] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const currentUser = useContext(CurrentUserContext);
@@ -22,6 +22,8 @@ function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, 
     const isEmailChanged = values.email !== currentUser.email;
     setIsDataChanged(isNameChanged || isEmailChanged);
   }, [values, currentUser])
+
+  useEffect(() => setIsProfileEdit(false), [])
 
   const handleEditProfile = () => {
     setSubmitted(false); // Сбрасываем флаг при нажатии на кнопку "Редактировать"
@@ -39,8 +41,6 @@ function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, 
         </Popup>
         <FormTitle titleText={`Привет, ${currentUser.name}!`}></FormTitle>
         <Form
-          isDataChanged={isDataChanged}
-          setSubmitted={setSubmitted}
           name='profile'
           btnText='Сохранить'
           isProfileEdit={isEdit}
@@ -52,7 +52,7 @@ function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, 
             Имя
           </label>
           <input
-            value={values.name || currentUser.name}
+            value={values.name || ''}
             onChange={handleChange}
             placeholder='Имя'
             className='profile__input'
@@ -68,7 +68,7 @@ function Profile({ isProfilePopupOpen, handleCloseProfilePopup, profileMessage, 
             E-mail
           </label>
           <input
-            value={values.email || currentUser.email}
+            value={values.email || ''}
             onChange={handleChange}
             placeholder='E-mail'
             className='profile__input profile__input_type_e-mail'
