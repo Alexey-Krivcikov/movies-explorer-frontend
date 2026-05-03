@@ -2,14 +2,21 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './SavedMovies.css';
 
-function SavedMovies({ moviesCards, isLoading, isLiked, handleMovieLike }) {
+function SavedMovies({ moviesCards, isMovieSearchSuccess, isMovieLoading, isShortFilm, handleShowMore, visibleCards, handleSearchSavedMovies, handleDeleteMovie, savedMovies }) {
   return (
     <main className='saved-movies'>
-      <SearchForm />
+      <SearchForm
+        isShortFilm={isShortFilm}
+        onSearchMovies={handleSearchSavedMovies}
+        isMovieSearchSuccess={isMovieSearchSuccess} />
       <MoviesCardList
-        moviesCards={moviesCards} buttonType='delete' place='saved-movies'
-        isLiked={isLiked}
-        handleMovieLike={handleMovieLike} />
+        isMovieLoading={isMovieLoading}
+        visibleCards={visibleCards}
+        moviesCards={moviesCards}
+        handleDeleteMovie={handleDeleteMovie}
+        handleShowMore={handleShowMore}
+      />
+
     </main>
   );
 }

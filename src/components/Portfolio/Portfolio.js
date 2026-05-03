@@ -1,34 +1,35 @@
 import './Portfolio.css';
+import { PORTFOLIO_ITEMS, PORTFOLIO_TITLE } from '../../utils/config/constants';
 
 function Portfolio() {
   return (
     <section className='portfolio'>
-      <h4 className='portfolio__title'>Портфолио</h4>
+      <h4 className='portfolio__title'>{PORTFOLIO_TITLE}</h4>
       <ul className='portfolio__list'>
         <li className='portfolio__item'>
           <a
             className='portfolio__link'
-            href='https://alexey-krivcikov.github.io/how-to-learn/'
+            href={PORTFOLIO_ITEMS[0].link}
             target='_blank' rel="noreferrer">
-            Статичный сайт
+            {PORTFOLIO_ITEMS[0].title}
             <span className='portfolio__arrow'>&#8599;</span>
           </a>
         </li>
         <li className='portfolio__item'>
           <a
             className='portfolio__link'
-            href='https://alexey-krivcikov.github.io/russian-travel/'
+            href={PORTFOLIO_ITEMS[1].link}
             target='_blank' rel="noreferrer">
-            Адаптивный сайт
+            {PORTFOLIO_ITEMS[1].title}
             <span className='portfolio__arrow'>&#8599;</span>
           </a>
         </li>
         <li className='portfolio__item'>
           <a
             className='portfolio__link'
-            href='https://alexey-krivcikov.github.io/mesto-react/'
+            href={PORTFOLIO_ITEMS[2].link}
             target='_blank' rel="noreferrer">
-            Одностраничное приложение
+            {PORTFOLIO_ITEMS[2].title}
             <span className='portfolio__arrow'>&#8599;</span>
           </a>
         </li>

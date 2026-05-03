@@ -1,25 +1,22 @@
-import './Techs.css';
+import { TECHS, TECHS_MAIN_TITLE, TECHS_DESCRIPTION, TECHS_LIST } from '../../utils/config/constants';
 import SectionTitle from '../SectionTitle/SectionTitle';
+import './Techs.css'
 
 function Techs() {
   return (
     <section id='techs' className='techs'>
       <div className='techs__container'>
-        <SectionTitle text={'Технологии'} />
-        <h3 className='techs__title'>7 технологий</h3>
-        <p className='techs__description'>На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
+        <SectionTitle text={TECHS} />
+        <h3 className='techs__title'>{TECHS_MAIN_TITLE}</h3>
+        <p className='techs__description'>{TECHS_DESCRIPTION}</p>
         <ul className='techs__list'>
-          <li className='techs__list-item'>HTML</li>
-          <li className='techs__list-item'>CSS</li>
-          <li className='techs__list-item'>JS</li>
-          <li className='techs__list-item'>React</li>
-          <li className='techs__list-item'>Git</li>
-          <li className='techs__list-item'>Express.js</li>
-          <li className='techs__list-item'>mongoDB</li>
+          {TECHS_LIST.map((tech, index) => (
+            <li className='techs__list-item' key={index}>{tech}</li>
+          ))}
         </ul>
       </div>
     </section>
-  )
+  );
 }
 
 export default Techs;
